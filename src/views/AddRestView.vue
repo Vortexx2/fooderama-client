@@ -4,26 +4,31 @@
       <h1 class="text-3xl">Add Restaurant</h1>
     </div>
     <form class="ml-6 mt-3">
-      <div v-for="(field, index) in Object.keys(formObj)" :key="index" class="mt-2">
-        <label
-          class="mr-3"
-          :for="field"
-          >{{ formObj[field as keyof typeof formObj].displayField }}</label
-        >
+      <div
+        v-for="(field, index) in Object.keys(formObj)"
+        :key="index"
+        class="mt-2"
+      >
+        <label class="mr-3" :for="field">{{
+          formObj[field].displayField
+        }}</label>
         <input
           type="text"
           class="bg-transparent text-white border-white border-solid border-2 px-2"
           :id="field"
-          v-model="formObj[field as keyof typeof formObj].value"
+          v-model="formObj[field].value"
         />
       </div>
-      <button class="bg-lime-500 px-2 mt-4 text-black">Create</button>
+      <button class="bg-lime-500 px-2 mt-4 text-black" @click="addRestaraunt">
+        Create
+      </button>
     </form>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, computed } from 'vue';
+import axios from 'axios';
 
 /* will map fields to properties the field should have like value, required etc. */
 const formObj = ref({
@@ -49,11 +54,36 @@ const formObj = ref({
   },
 });
 
-const formObjArr = computed(() => {
-  const res = Object.keys(formObj.value).map((key, index) => {
-    return [key, formObj.value[key as keyof typeof formObj.value]];
+const API_URL = 'http://localhost:4000/api/v1/restaurants';
+
+function clearAllValues(obj) {
+  for (const key in obj) {
+    obj[key].value = '';
+  }
+}
+
+/**
+ *
+ * @param {Event} e
+ */
+function addRestaraunt(e) {
+  e.preventDefault();
+
+  const bodyObj = {};
+
+  Object.keys(formObj.value).map(field => {
+    if (formObj.value[field].value !== '')
+      bodyObj[field] = formObj.value[field].value;
   });
-  console.log(res);
-  return res;
-});
+
+  axios
+    .post(API_URL, bodyObj)
+    .then(res => {
+      clearAllValues(formObj.value);
+      console.log(res);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
 </script>
