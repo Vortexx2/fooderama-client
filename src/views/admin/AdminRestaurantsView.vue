@@ -1,21 +1,35 @@
 <script setup>
 import { onMounted, ref, watchEffect } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 import RestaurantCard from '@/components/RestaurantCard.vue';
 
 import config from '@/config';
 
 const API_URL = config.BASE_API_URL + 'restaurants';
+const router = useRouter();
 const res = ref(null);
+
+onMounted(() => {
+  getRestaurants(API_URL);
+});
 
 async function getRestaurants(url) {
   res.value = await (await fetch(url)).json();
 }
 
-onMounted(() => {
-  getRestaurants(API_URL);
-});
+/**
+ *
+ * @param {number} restId
+ */
+function editRestaurant(restId) {
+  router.push({
+    name: 'individual restaurants',
+    params: {
+      id: restId,
+    },
+  });
+}
 </script>
 
 <template>
@@ -32,6 +46,7 @@ onMounted(() => {
         :key="index"
         :restData="rest"
         class="mt-3"
+        @edit-restaurant="editRestaurant"
       ></restaurant-card>
     </main>
   </div>
