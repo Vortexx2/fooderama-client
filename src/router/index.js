@@ -10,14 +10,19 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/admin',
+      path: '/admin/restaurants',
       name: 'admin',
       component: () => import('../views/admin/AdminRestaurantsView.vue'),
     },
     {
-      path: '/admin/addrest',
+      path: '/admin/restaurants/addrest',
       name: 'addrest',
       component: () => import('../views/admin/AddRestView.vue'),
+    },
+    {
+      path: '/admin/restaurants/:id',
+      name: 'individual restaurants',
+      component: () => import('../views/admin/AdminIndividualRestView.vue'),
     },
     // {
     //   path: '/about',
