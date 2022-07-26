@@ -1,31 +1,3 @@
-<template>
-  <div>
-    <div id="title" class="ml-4">
-      <h1 class="text-3xl">Add Restaurant</h1>
-    </div>
-    <form class="ml-6 mt-3">
-      <div
-        v-for="(field, index) in Object.keys(formObj)"
-        :key="index"
-        class="mt-2"
-      >
-        <label class="mr-3" :for="field">{{
-          formObj[field].displayField
-        }}</label>
-        <input
-          type="text"
-          class="bg-transparent text-white border-white border-solid border-2 px-2"
-          :id="field"
-          v-model="formObj[field].value"
-        />
-      </div>
-      <button class="bg-lime-500 px-2 mt-4 text-black" @click="addRestaraunt">
-        Create
-      </button>
-    </form>
-  </div>
-</template>
-
 <script setup>
 import { ref, reactive, computed } from 'vue';
 import axios from 'axios';
@@ -66,7 +38,7 @@ function clearAllValues(obj) {
  *
  * @param {Event} e
  */
-function addRestaraunt(e) {
+function addRestaurant(e) {
   e.preventDefault();
 
   const bodyObj = {};
@@ -87,3 +59,31 @@ function addRestaraunt(e) {
     });
 }
 </script>
+
+<template>
+  <div>
+    <div id="title" class="ml-4">
+      <h1 class="text-3xl">Add Restaurant</h1>
+    </div>
+    <form class="ml-6 mt-3">
+      <div
+        v-for="(field, index) in Object.keys(formObj)"
+        :key="index"
+        class="mt-2"
+      >
+        <label class="mr-3" :for="field">{{
+          formObj[field].displayField
+        }}</label>
+        <input
+          type="text"
+          class="bg-transparent text-white border-white border-solid border-2 px-2"
+          :id="field"
+          v-model="formObj[field].value"
+        />
+      </div>
+      <button class="bg-lime-500 px-2 mt-4 text-black" @click="addRestaurant">
+        Create
+      </button>
+    </form>
+  </div>
+</template>
