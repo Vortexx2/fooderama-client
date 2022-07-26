@@ -2,31 +2,11 @@
 import { ref, reactive, computed } from 'vue';
 import axios from 'axios';
 
-import config from '@/config'
+import config from '@/config';
+import { restaurantFormFields } from '../../constants/rest.const';
 
 /* will map fields to properties the field should have like value, required etc. */
-const formObj = ref({
-  restName: {
-    value: '',
-    required: true,
-    displayField: 'Restaurant Name',
-  },
-  description: {
-    value: '',
-    required: false,
-    displayField: 'Description',
-  },
-  openingTime: {
-    value: '',
-    required: false,
-    displayField: 'Opening Time',
-  },
-  closingTime: {
-    value: '',
-    required: false,
-    displayField: 'Closing Time',
-  },
-});
+const formObj = ref(restaurantFormFields());
 
 const API_URL = config.BASE_API_URL + '/restaurants';
 
