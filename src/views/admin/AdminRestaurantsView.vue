@@ -37,7 +37,7 @@ function editRestaurant(restId) {
     <div id="header" class="text-center flex align-middle">
       <h1 class="text-2xl inline-block">Restaurants</h1>
       <button class="btn-green ml-9">
-        <router-link to="/admin/addrest">Create</router-link>
+        <router-link :to="{ name: 'addrest' }">Create</router-link>
       </button>
     </div>
     <main id="main-content">
