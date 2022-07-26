@@ -1,17 +1,21 @@
 <script setup>
-import RestaurantCard from '@/components/RestaurantCard.vue';
-
-import { ref, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { RouterLink } from 'vue-router';
 
-const API_URL = 'http://localhost:4000/api/v1/restaurants';
+import RestaurantCard from '@/components/RestaurantCard.vue';
+
+import config from '@/config';
+
+const API_URL = config.BASE_API_URL + 'restaurants';
 const res = ref(null);
 
-async function getRestaraunts(url) {
+async function getRestaurants(url) {
   res.value = await (await fetch(url)).json();
 }
 
-getRestaraunts(API_URL);
+onMounted(() => {
+  getRestaurants(API_URL);
+});
 </script>
 
 <template>
@@ -22,7 +26,7 @@ getRestaraunts(API_URL);
         <router-link to="/admin/addrest">Create</router-link>
       </button>
     </div>
-    <main id="main-content" v-if="res">
+    <main id="main-content">
       <restaurant-card
         v-for="(rest, index) in res"
         :key="index"

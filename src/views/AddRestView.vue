@@ -2,6 +2,8 @@
 import { ref, reactive, computed } from 'vue';
 import axios from 'axios';
 
+import config from '@/config'
+
 /* will map fields to properties the field should have like value, required etc. */
 const formObj = ref({
   restName: {
@@ -26,7 +28,7 @@ const formObj = ref({
   },
 });
 
-const API_URL = 'http://localhost:4000/api/v1/restaurants';
+const API_URL = config.BASE_API_URL + '/restaurants';
 
 function clearAllValues(obj) {
   for (const key in obj) {
