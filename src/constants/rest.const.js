@@ -27,7 +27,10 @@ export const restaurantFormFields = () => {
   };
 };
 
-export const restaurantResponseProps = () => {
+/**
+ * @returns the object with correct structure for restData in the restaurant-card component
+ */
+export const restaurantResponseProp = () => {
   return {
     restId: Number,
     restName: String,
