@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import axios from 'axios'
 
 import config from '@/config'
+import { restaurantFormFields } from '@/constants/rest.const'
 import Form from '../../components/Form.vue'
 
 const route = useRoute()
@@ -28,7 +29,7 @@ async function getRestaurantData(url) {
 <template>
   <div v-if="restData" class="ml-10 mt-3">
     <h1 class="text-2xl">{{ restData.restName }}</h1>
-    <!-- <Form -->
+    <Form :fields-obj="restaurantFormFields(true)" submit-button-name="Edit"></Form>
   </div>
 </template>
 

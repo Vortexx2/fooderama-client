@@ -1,5 +1,6 @@
 /**
  * Function that returns the object for displaying fields to fill in the form for registration of a restaurant.
+ * @param {boolean} includeOpen decides if the `open` field should be included in the returned object
  * @returns the object with the fields that need to be entered to register a restaurant
  */
 export const restaurantFormFields = (includeOpen = false) => {

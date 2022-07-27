@@ -48,6 +48,7 @@ function addRestaurant(formObj) {
     <div class="mt-5 ml-5">
       <Form
         :fields-obj="restaurantFormFields()"
+        submit-button-name="Create"
         @form-submitted="addRestaurant"
       ></Form>
     </div>
