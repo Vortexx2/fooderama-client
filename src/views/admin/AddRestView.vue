@@ -1,19 +1,19 @@
 <script setup>
-import { ref, reactive, computed } from 'vue';
-import axios from 'axios';
+import { ref, reactive, computed } from 'vue'
+import axios from 'axios'
 
-import Form from '../../components/Form.vue';
+import Form from '../../components/Form.vue'
 
-import config from '@/config';
-import { restaurantFormFields } from '../../constants/rest.const';
+import config from '@/config'
+import { restaurantFormFields } from '../../constants/rest.const'
 
 /* will map fields to properties the field should have like value, required etc. */
 
-const API_URL = config.BASE_API_URL + '/restaurants';
+const API_URL = config.BASE_API_URL + '/restaurants'
 
 function clearAllValues(obj) {
   for (const key in obj) {
-    obj[key].value = '';
+    obj[key].value = ''
   }
 }
 
@@ -22,21 +22,21 @@ function clearAllValues(obj) {
  * @param {Event} e
  */
 function addRestaurant(formObj) {
-  const bodyObj = {};
+  const bodyObj = {}
 
   // remove all fields that have an empty 'value' property, since that equates to null in that field
   Object.keys(formObj).map(field => {
-    if (formObj[field].value !== '') bodyObj[field] = formObj[field].value;
-  });
+    if (formObj[field].value !== '') bodyObj[field] = formObj[field].value
+  })
 
   axios
     .post(API_URL, bodyObj)
     .then(res => {
-      console.log(res);
+      console.log(res)
     })
     .catch(err => {
-      console.error(err);
-    });
+      console.error(err)
+    })
 }
 </script>
 

@@ -1,31 +1,31 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const props = defineProps({
   fieldsObj: {
     type: Object,
     required: true,
   },
-});
+})
 
-const emit = defineEmits(['formSubmitted']);
+const emit = defineEmits(['formSubmitted'])
 
-const formObj = ref(props.fieldsObj);
+const formObj = ref(props.fieldsObj)
 
 /**
  *
  * @param {Event} e
  */
 function formSubmit(e) {
-  e.preventDefault();
-  emit('formSubmitted', formObj.value);
+  e.preventDefault()
+  emit('formSubmitted', formObj.value)
 
-  clearAllValues(formObj.value);
+  clearAllValues(formObj.value)
 }
 
 function clearAllValues(obj) {
   for (const key in obj) {
-    obj[key].value = '';
+    obj[key].value = ''
   }
 }
 </script>

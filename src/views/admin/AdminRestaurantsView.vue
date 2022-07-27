@@ -1,21 +1,21 @@
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue';
-import { RouterLink, useRouter } from 'vue-router';
+import { onMounted, ref, watchEffect } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 
-import RestaurantCard from '@/components/RestaurantCard.vue';
+import RestaurantCard from '@/components/RestaurantCard.vue'
 
-import config from '@/config';
+import config from '@/config'
 
-const API_URL = config.BASE_API_URL + 'restaurants';
-const router = useRouter();
-const res = ref(null);
+const API_URL = config.BASE_API_URL + 'restaurants'
+const router = useRouter()
+const res = ref(null)
 
 onMounted(() => {
-  getRestaurants(API_URL);
-});
+  getRestaurants(API_URL)
+})
 
 async function getRestaurants(url) {
-  res.value = await (await fetch(url)).json();
+  res.value = await (await fetch(url)).json()
 }
 
 /**
@@ -28,7 +28,7 @@ function editRestaurant(restId) {
     params: {
       id: restId,
     },
-  });
+  })
 }
 </script>
 

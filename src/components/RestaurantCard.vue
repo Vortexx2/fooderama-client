@@ -1,10 +1,10 @@
 <script setup>
-import { restaurantResponseProp } from '../constants/rest.const';
+import { restaurantResponseProp } from '../constants/rest.const'
 
 // props for this component
 const props = defineProps({
   restData: restaurantResponseProp(),
-});
+})
 </script>
 
 <template>
