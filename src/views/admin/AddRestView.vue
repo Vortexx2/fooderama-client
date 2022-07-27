@@ -26,8 +26,7 @@ function addRestaurant(formObj) {
 
   // remove all fields that have an empty 'value' property, since that equates to null in that field
   Object.keys(formObj).map(field => {
-    if (formObj[field].value !== '')
-      bodyObj[field] = formObj[field].value;
+    if (formObj[field].value !== '') bodyObj[field] = formObj[field].value;
   });
 
   axios
@@ -46,6 +45,11 @@ function addRestaurant(formObj) {
     <div id="title" class="ml-4">
       <h1 class="text-3xl">Add Restaurant</h1>
     </div>
-    <Form :fields-obj="restaurantFormFields()" @form-submitted="addRestaurant"></Form>
+    <div class="mt-5 ml-5">
+      <Form
+        :fields-obj="restaurantFormFields()"
+        @form-submitted="addRestaurant"
+      ></Form>
+    </div>
   </div>
 </template>

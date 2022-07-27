@@ -6,8 +6,7 @@ import Navbar from '@/components/Navbar.vue';
 <template>
   <header>
     <div class="wrapper">
-
-    <Navbar></Navbar>
+      <Navbar></Navbar>
     </div>
   </header>
 

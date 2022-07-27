@@ -12,7 +12,12 @@ const props = defineProps({
     <span>
       <p>{{ restData.restName }}</p>
     </span>
-    <button class="btn-green ml-3" @click="$emit('editRestaurant', restData.restId)">Edit</button>
+    <button
+      class="btn-green ml-3"
+      @click="$emit('editRestaurant', restData.restId)"
+    >
+      Edit
+    </button>
   </div>
 </template>
 

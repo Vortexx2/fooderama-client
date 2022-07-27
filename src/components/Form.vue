@@ -35,9 +35,11 @@ function clearAllValues(obj) {
     <div
       v-for="(field, index) in Object.keys(formObj)"
       :key="index"
-      class="mt-2"
+      class="mt-3"
     >
-      <label class="mr-3" :for="field">{{ formObj[field].displayField }}</label>
+      <label class="mr-3 text-lg" :for="field">{{
+        formObj[field].displayField
+      }}</label>
       <input
         type="text"
         class="bg-transparent text-white border-white border-solid border-2 px-2"
