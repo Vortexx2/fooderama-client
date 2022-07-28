@@ -7,21 +7,25 @@ export const restaurantFormFields = (includeOpen = false) => {
   const returnObj = {
     restName: {
       value: '',
+      type: 'text',
       required: true,
       displayField: 'Restaurant Name',
     },
     description: {
       value: '',
+      type: 'text',
       required: false,
       displayField: 'Description',
     },
     openingTime: {
       value: '',
+      type: 'text',
       required: false,
       displayField: 'Opening Time',
     },
     closingTime: {
       value: '',
+      type: 'text',
       required: false,
       displayField: 'Closing Time',
     },
@@ -30,7 +34,8 @@ export const restaurantFormFields = (includeOpen = false) => {
   if (includeOpen)
     returnObj['open'] = {
       value: false,
-      required: true,
+      type: 'checkbox',
+      required: false,
       displayField: 'Is Restaurant Open?',
     }
 

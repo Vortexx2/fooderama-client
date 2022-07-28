@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   fieldsObj: {
@@ -36,16 +36,6 @@ function clearAllValues(obj) {
     obj[key].value = ''
   }
 }
-
-// TODO: Check why this runs everytime any value is changed
-/**
- * Determine type of input depending on the type of `value` field that is passed in.
- * @param {Object} obj the field object that has a value field in it. This value field will be used to determine type of input.
- */
-function determineFormInputType(obj) {
-  console.log(typeof obj.value)
-  return typeof obj.value === 'string' ? 'text' : 'checkbox';
-}
 </script>
 
 <template>
@@ -55,12 +45,13 @@ function determineFormInputType(obj) {
       :key="index"
       class="mt-3"
     >
-      <label class="mr-3 text-lg" :for="field">{{
+      <label class="mr-2 text-lg" :for="field">{{
         formObj[field].displayField
       }}</label>
+      <p class="text-red-400 text-lg inline-block mr-3" v-if="formObj[field].required"><sup>*</sup></p>
       <input
-        :type="determineFormInputType(formObj[field])"
         class="bg-transparent text-white border-white border-solid border-2 px-2"
+        :type="formObj[field].type"
         :id="field"
         v-model="formObj[field].value"
       />
