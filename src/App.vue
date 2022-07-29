@@ -4,13 +4,15 @@ import Navbar from '@/components/Navbar.vue'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <Navbar></Navbar>
-    </div>
-  </header>
+  <div class="bg-cultured">
+    <header>
+      <div class="wrapper">
+        <Navbar></Navbar>
+      </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped></style>
