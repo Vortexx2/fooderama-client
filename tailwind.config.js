@@ -87,6 +87,14 @@ module.exports = {
       // colours that need to be ported over from tailwind
       lime: colors.lime,
       black: colors.black,
+      white: colors.white,
+      transparent: 'transparent',
+      current: 'currentColor',
+    },
+    extend: {
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
     },
   },
   extend: {},
