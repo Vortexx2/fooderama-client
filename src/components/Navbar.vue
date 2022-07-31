@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import CartIcon from './icons/CartIcon.vue'
 import Search from './utils/Search.vue'
 import SearchIcon from './icons/SearchIcon.vue'
+import HamburgerIcon from './icons/HamburgerIcon.vue'
 
 const colors = ref({
   cultured: '#edf4f2',
@@ -18,7 +19,7 @@ const colors = ref({
     </span>
 
     <!-- Search Component -->
-    <span class="ml-auto -mr-52">
+    <span class="max-w-[150px] ml-1 sm:max-w-[200px] sm:ml-auto lg:-mr-52">
       <Search>
         <template #icon>
           <SearchIcon
@@ -30,7 +31,9 @@ const colors = ref({
     </span>
 
     <!-- Cart Button -->
-    <span class="ml-auto cursor-pointer hover:-translate-y-0.5 transition">
+    <span
+      class="ml-auto cursor-pointer hover:-translate-y-0.5 transition hidden md:inline"
+    >
       <CartIcon
         :color="colors.cultured"
         class="w-[35px] h-[35px] -scale-x-100"
@@ -38,8 +41,16 @@ const colors = ref({
     </span>
 
     <!-- Login Button -->
-    <span class="flex align-middle ml-5 mr-2">
+    <span class="align-middle ml-5 mr-2 hidden md:inline">
       <button class="btn-dark hover:-translate-y-0.5">Login</button>
+    </span>
+
+    <!-- Hamburger menu -->
+    <span class="ml-auto md:hidden">
+      <HamburgerIcon
+        :color="colors.cultured"
+        class="w-[32px] h-[32px]"
+      ></HamburgerIcon>
     </span>
   </nav>
 </template>

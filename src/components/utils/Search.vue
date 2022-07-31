@@ -25,7 +25,7 @@ const props = defineProps({
     <span>
       <input
         type="text"
-        class="h-full rounded-r-lg bg-cultured text-black text-md px-2 focus:outline-none focus:outline-1"
+        class="h-full w-full rounded-r-lg bg-cultured text-black text-md px-2 focus:outline-none focus:outline-1"
         :placeholder="defaultSearchValue"
       />
     </span>
