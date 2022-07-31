@@ -1,5 +1,7 @@
+<!-- CartIcon Component -->
 <script setup>
 const props = defineProps({
+  // defines the color of the icon. Will be entered into the `fill` property of the path, so enter hexadecimal, rgb or valid css color
   color: {
     type: String,
     required: true,

@@ -1,5 +1,6 @@
 <script setup>
 import CartIcon from './icons/CartIcon.vue'
+import Search from './utils/Search.vue'
 </script>
 
 <template>
@@ -8,6 +9,15 @@ import CartIcon from './icons/CartIcon.vue'
   >
     <span id="logo" class="mx-3 flex items-center">
       <h3 class="text-2xl h-fit">Fooderama</h3>
+    </span>
+    <span>
+      <Search
+        :styles="{
+          iconColor: '#edf4f2',
+          iconWidth: '25px',
+          iconHeight: '25px',
+        }"
+      ></Search>
     </span>
     <span class="ml-auto cursor-pointer hover:-translate-y-1 transition">
       <CartIcon color="#edf4f2" class="w-[35px] h-[35px] -scale-x-100" />
