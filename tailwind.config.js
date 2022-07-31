@@ -88,12 +88,19 @@ module.exports = {
       lime: colors.lime,
       black: colors.black,
       white: colors.white,
+      blue: colors.blue,
       transparent: 'transparent',
       current: 'currentColor',
     },
     extend: {
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
+      borderWidth: {
+        3: '3px',
+      },
+      fontSize: {
+        md: '1.0625rem',
       },
     },
   },
