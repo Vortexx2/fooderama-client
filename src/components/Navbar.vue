@@ -19,7 +19,7 @@ const colors = ref({
     </span>
 
     <!-- Search Component -->
-    <span class="max-w-[150px] ml-1 sm:max-w-[200px] sm:ml-auto lg:-mr-52">
+    <!-- <span class="max-w-[175px] ml-auto sm:max-w-[200px] lg:-mr-52">
       <Search>
         <template #icon>
           <SearchIcon
@@ -28,7 +28,7 @@ const colors = ref({
           ></SearchIcon>
         </template>
       </Search>
-    </span>
+    </span> -->
 
     <!-- Cart Button -->
     <span

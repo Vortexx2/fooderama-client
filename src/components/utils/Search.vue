@@ -2,6 +2,7 @@
 import SearchIcon from '../icons/SearchIcon.vue'
 
 const props = defineProps({
+  // the default placeholder value that will be placed in the search box
   defaultSearchValue: {
     type: String,
     required: false,
@@ -11,11 +12,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <span class="flex rounded bg-space-6 shadow-black shadow-lg">
+  <span class="flex rounded bg-raisinb-5 shadow-black shadow-lg">
     <!-- icon for the search operation -->
-    <span
-      class="px-3 py-1 rounded-l-lg cursor-pointer group hover:bg-raisinb-5"
-    >
+    <span class="px-3 py-1 rounded-l-lg group btn-dark">
       <slot name="icon">
         <SearchIcon class="w-[25px] h-[25px]"></SearchIcon>
       </slot>
