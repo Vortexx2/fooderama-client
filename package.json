@@ -5,7 +5,7 @@
     "dev": "vite --mode=development",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "precommit": "npm lint-staged",
+    "precommit": "lint-staged",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
@@ -32,9 +32,8 @@
     "vite": "^3.0.1"
   },
   "lint-staged": {
-    "*": [
-      "prettier --write",
-      "git add"
+    "**/*.{js,jsx,ts,tsx,json,vue,css}": [
+      "prettier --write"
     ]
   }
 }
