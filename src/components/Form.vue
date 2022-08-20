@@ -43,23 +43,20 @@ function clearAllValues(obj) {
     <div
       v-for="(field, index) in Object.keys(formObj)"
       :key="index"
-      class="mt-3"
-    >
+      class="mt-3">
       <label class="mr-2 text-lg" :for="field">{{
         formObj[field].displayField
       }}</label>
       <p
         class="text-red-400 text-lg inline-block mr-3"
-        v-if="formObj[field].required"
-      >
+        v-if="formObj[field].required">
         <sup>*</sup>
       </p>
       <input
         class="bg-transparent text-white border-white border-solid border-2 px-2"
         :type="formObj[field].type"
         :id="field"
-        v-model="formObj[field].value"
-      />
+        v-model="formObj[field].value" />
     </div>
     <button class="btn-green mt-4" @click="formSubmit">
       {{ submitButtonName }}

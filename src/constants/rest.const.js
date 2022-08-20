@@ -45,14 +45,13 @@ export const restaurantFormFields = (includeOpen = false) => {
 /**
  * @returns the object with correct structure for restData in the restaurant-card component
  */
-export const restaurantResponseProp = () => {
-  return {
-    restId: Number,
-    restName: String,
-    description: String,
-    open: Boolean,
-    rating: Number,
-    openingTime: String,
-    closingTime: String,
-  }
+export const restaurantResponseProp = {
+  restId: Number,
+  restName: String,
+  restImage: String,
+  description: String,
+  open: Boolean,
+  rating: Number,
+  openingTime: String,
+  closingTime: String,
 }

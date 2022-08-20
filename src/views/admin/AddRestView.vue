@@ -49,8 +49,7 @@ function addRestaurant(formObj) {
       <Form
         :fields-obj="restaurantFormFields()"
         submit-button-name="Create"
-        @form-submitted="addRestaurant"
-      ></Form>
+        @form-submitted="addRestaurant"></Form>
     </div>
   </div>
 </template>

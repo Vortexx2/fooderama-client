@@ -102,6 +102,10 @@ module.exports = {
       fontSize: {
         md: '1.0625rem',
       },
+      fontFamily: {
+        raleway: ['Raleway', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
     },
   },
   extend: {},

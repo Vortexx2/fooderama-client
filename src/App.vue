@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar.vue'
 </script>
 
 <template>
-  <div class="bg-cultured h-screen">
+  <div class="bg-cultured">
     <header>
       <div class="wrapper">
         <Navbar></Navbar>

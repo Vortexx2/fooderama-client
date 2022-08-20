@@ -47,8 +47,7 @@ async function editRestaurant(formObj) {
     <Form
       :fields-obj="restaurantFormFields(true)"
       submit-button-name="Edit"
-      @form-submitted="editRestaurant"
-    ></Form>
+      @form-submitted="editRestaurant"></Form>
   </div>
 </template>
 

@@ -46,8 +46,7 @@ function editRestaurant(restId) {
         :key="index"
         :restData="rest"
         class="mt-3"
-        @edit-restaurant="editRestaurant"
-      ></restaurant-card>
+        @edit-restaurant="editRestaurant"></restaurant-card>
     </main>
   </div>
 </template>
