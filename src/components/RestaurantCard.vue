@@ -57,19 +57,32 @@ const cardClasses = computed(() => {
         alt="Restaurant Image"
         class="rounded-t-md" />
     </span>
-    <div class="px-3 py-3">
+    <div class="px-3 py-3 text-ellipsis">
       <span class="flex items-center mb-2">
+        <!-- Restaurant Name -->
         <span>
           <p>{{ restData.restName }}</p>
         </span>
+
+        <!-- Order button -->
         <button
           class="ml-auto font-medium bg-amaranth rounded-md py-1 px-2 shadow-xl"
           :class="cardClasses.orderButtonClasses">
           Order
         </button>
       </span>
-      <span>
-        <p class="text-xs text-cultured-3">{{ restData.description }}</p>
+
+      <!-- Cuisines section -->
+      <span v-if="restData.Cuisines">
+        <span
+          class="mr-1 text-xs text-cultured-3"
+          v-for="(cuisine, index) in restData.Cuisines"
+          :key="index">
+          <span>{{ cuisine.cuisineName }}</span>
+
+          <!-- Commas are there only if it's not the last restaurant -->
+          <span v-if="index !== restData.Cuisines.length - 1">,</span>
+        </span>
       </span>
     </div>
   </div>

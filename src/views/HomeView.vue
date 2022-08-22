@@ -15,9 +15,9 @@ const fetchError = ref(false)
  * Fetches all restaurants from `RESTAURANT_ENDPOINT` and assigns `fetchedData` the incoming axios data. Then sets `isLoading` to false.
  */
 async function getRestaurants() {
-  // below URL sorts items by the 'open' field in descending order -> null, true, false
+  // below URL fetches restaurants with cuisines and sorts them by the 'open' field in descending order -> null, true, false
   fetchedData.value = await axios.get(
-    RESTAURANT_ENDPOINT + '?orderby=open&sort=desc'
+    RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc'
   )
   isLoading.value = false
 }
