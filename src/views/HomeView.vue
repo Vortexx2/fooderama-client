@@ -15,7 +15,10 @@ const fetchError = ref(false)
  * Fetches all restaurants from `RESTAURANT_ENDPOINT` and assigns `fetchedData` the incoming axios data. Then sets `isLoading` to false.
  */
 async function getRestaurants() {
-  fetchedData.value = await axios.get(RESTAURANT_ENDPOINT)
+  // below URL sorts items by the 'open' field in descending order -> null, true, false
+  fetchedData.value = await axios.get(
+    RESTAURANT_ENDPOINT + '?orderby=open&sort=desc'
+  )
   isLoading.value = false
 }
 
@@ -83,7 +86,7 @@ onMounted(() => {
       <!-- Restaurant Cards -->
       <div v-if="!isLoading">
         <!-- <RestaurantCard :restData="fetchedData.data[0]"></RestaurantCard> -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-2">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5">
           <RestaurantCard
             v-for="(restaurant, index) in fetchedData.data"
             :restData="restaurant" />

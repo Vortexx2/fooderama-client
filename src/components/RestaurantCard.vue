@@ -13,6 +13,9 @@ const props = defineProps({
   },
 })
 
+/**
+ * The classes for the card depending on the open property
+ */
 const cardClasses = computed(() => {
   const { open } = props.restData
 
@@ -46,7 +49,7 @@ const cardClasses = computed(() => {
 
 <template>
   <div
-    class="w-full rounded-md bg-space text-cultured shadow-2xl"
+    class="w-full rounded-md bg-space text-cultured shadow-2xl mb-4"
     :class="cardClasses.cardClasses">
     <span>
       <img
