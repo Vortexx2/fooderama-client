@@ -83,10 +83,10 @@ onMounted(() => {
       <!-- Restaurant Cards -->
       <div v-if="!isLoading">
         <!-- <RestaurantCard :restData="fetchedData.data[0]"></RestaurantCard> -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-2">
           <RestaurantCard
-            :restData="restaurant"
-            v-for="(restaurant, index) in fetchedData.data" />
+            v-for="(restaurant, index) in fetchedData.data"
+            :restData="restaurant" />
         </div>
       </div>
     </section>

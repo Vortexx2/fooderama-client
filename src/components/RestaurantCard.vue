@@ -13,23 +13,41 @@ const props = defineProps({
   },
 })
 
-const cardIsActiveClasses = computed(() => {
-  const { open } = restData
+const cardClasses = computed(() => {
+  const { open } = props.restData
 
-  if (open)
-    return [
+  const classesObj = {
+    cardClasses: [],
+    orderButtonClasses: [],
+  }
+
+  if (open) {
+    classesObj.cardClasses = [
       'cursor-pointer',
       'transition',
       'hover:scale-110',
       'hover:shadow-3xl',
     ]
-  else return ['opacity-50']
+
+    classesObj.orderButtonClasses = [
+      'transition',
+      'hover:-translate-y-1',
+      'hover:bg-amaranth-3',
+      'hover:scale-[1.05]',
+    ]
+  } else {
+    classesObj.cardClasses = ['opacity-50']
+    classesObj.orderButtonClasses = ['cursor-default']
+  }
+
+  return classesObj
 })
 </script>
 
-<template v-if="restData">
+<template>
   <div
-    class="w-full rounded-md bg-space text-cultured shadow-2xl cursor-pointer transition hover:scale-110 hover:shadow-3xl">
+    class="w-full rounded-md bg-space text-cultured shadow-2xl"
+    :class="cardClasses.cardClasses">
     <span>
       <img
         :src="restData.restImage"
@@ -37,17 +55,18 @@ const cardIsActiveClasses = computed(() => {
         class="rounded-t-md" />
     </span>
     <div class="px-3 py-3">
-      <span class="flex items-center">
+      <span class="flex items-center mb-2">
         <span>
           <p>{{ restData.restName }}</p>
         </span>
         <button
-          class="ml-auto font-medium bg-amaranth rounded-md py-1 px-2 shadow-xl transition hover:-translate-y-1 hover:bg-amaranth-3 hover:scale-[1.05]">
+          class="ml-auto font-medium bg-amaranth rounded-md py-1 px-2 shadow-xl"
+          :class="cardClasses.orderButtonClasses">
           Order
         </button>
       </span>
       <span>
-        <p>{{ restData.description }}</p>
+        <p class="text-xs text-cultured-3">{{ restData.description }}</p>
       </span>
     </div>
   </div>
