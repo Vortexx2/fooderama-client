@@ -1,9 +1,12 @@
 <script setup>
+import axios from 'axios'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
+
+import config from '../config'
 import RestaurantCard from '../components/RestaurantCard.vue'
 import LoadingIcon from '../components/icons/LoadingIcon.vue'
-import config from '../config'
-import axios from 'axios'
+import Footer from '../components/Footer.vue'
+// Imports above
 
 const RESTAURANT_ENDPOINT = config.BASE_API_URL + 'restaurants'
 
@@ -56,7 +59,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="mx-5 font-montserrat subpixel-antialiased">
+  <main class="font-montserrat subpixel-antialiased overflow-x-hidden">
     <!-- Info and tagline -->
     <section class="my-4 text-center">
       <div class="capitalize text-3xl font-bold">
@@ -68,7 +71,7 @@ onMounted(() => {
     </section>
 
     <!-- Display restaurants -->
-    <section>
+    <section class="mx-5">
       <div class="text-2xl mb-3">Place an Order</div>
 
       <!-- TODO: Add a different style of loading where there is a skeleton of the layout and there is a loading animation in it -->
@@ -89,9 +92,12 @@ onMounted(() => {
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5">
           <RestaurantCard
             v-for="(restaurant, index) in fetchedData.data"
+            :key="index"
             :restData="restaurant" />
         </div>
       </div>
     </section>
+
+    <Footer></Footer>
   </main>
 </template>

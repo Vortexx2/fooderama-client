@@ -38,18 +38,6 @@ function clickedDropdownLink(path) {
       <h3 class="text-2xl h-fit">Fooderama</h3>
     </RouterLink>
 
-    <!-- Search Component -->
-    <!-- <span class="max-w-[175px] ml-auto sm:max-w-[200px] lg:-mr-52">
-      <Search>
-        <template #icon>
-          <SearchIcon
-            :color="colors.cultured"
-            class="w-[25px] h-[25px] group-hover:-translate-y-0.5 transition"
-          ></SearchIcon>
-        </template>
-      </Search>
-    </span> -->
-
     <!-- Cart Button -->
     <RouterLink
       to="/cart"
