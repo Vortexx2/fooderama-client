@@ -8,6 +8,11 @@
   .btn-dark {
     @apply rounded bg-raisinb-5 py-2 px-3 shadow-lg shadow-black hover:shadow-xl hover:shadow-black transition hover:bg-raisinb-3;
   }
+
+  .btn-red {
+    @apply font-medium bg-amaranth rounded-md shadow-xl text-cultured cursor-pointer transition hover:bg-amaranth-3;
+  }
+
   .btn-green {
     @apply bg-lime-500 px-2 text-black;
   }

@@ -40,7 +40,11 @@ const cardClasses = computed(() => {
     ]
   } else {
     classesObj.cardClasses = ['opacity-50']
-    classesObj.orderButtonClasses = ['cursor-default']
+    classesObj.orderButtonClasses = [
+      'cursor-default',
+      'transition-none',
+      'hover:bg-amaranth',
+    ]
   }
 
   return classesObj
@@ -66,7 +70,7 @@ const cardClasses = computed(() => {
 
         <!-- Order button -->
         <button
-          class="ml-auto font-medium bg-amaranth rounded-md py-1 px-2 shadow-xl"
+          class="ml-auto py-1 px-2 btn-red"
           :class="cardClasses.orderButtonClasses">
           Order
         </button>

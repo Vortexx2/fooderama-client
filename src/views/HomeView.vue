@@ -1,60 +1,27 @@
 <script setup>
 import axios from 'axios'
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import config from '../config'
+import { useRestaurantStore } from '../stores/restaurants'
+
+// Components
 import RestaurantCard from '../components/RestaurantCard.vue'
+import Search from '../components/utils/Search.vue'
 import LoadingIcon from '../components/icons/LoadingIcon.vue'
-import Footer from '../components/Footer.vue'
+import SearchIcon from '../components/icons/SearchIcon.vue'
 // Imports above
 
 const RESTAURANT_ENDPOINT = config.BASE_API_URL + 'restaurants'
 
-const fetchedData = ref(null)
-const isLoading = ref(true)
-const fetchError = ref(false)
-
-/**
- * Fetches all restaurants from `RESTAURANT_ENDPOINT` and assigns `fetchedData` the incoming axios data. Then sets `isLoading` to false.
- */
-async function getRestaurants() {
-  // below URL fetches restaurants with cuisines and sorts them by the 'open' field in descending order -> null, true, false
-  fetchedData.value = await axios.get(
-    RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc'
-  )
-  isLoading.value = false
-}
-
-/**
- * An asynchronous loop that checks the backend for restaurants for `totalTries` number of times every `fetchInterval` ms. Uses `setInterval` with regular checks to see if the request has been resolved.
- * @param {number} fetchInterval the interval at which to try the backend for information
- * @param {number} totalTries the number of times to try the backend
- */
-function fetchRestaurantLoop(fetchInterval, totalTries) {
-  let numTries = 1
-
-  // if the initial network request fails
-  getRestaurants().catch(err => {
-    // every `fetchInterval` ms, execute a network request and increment the `numTries` var
-    let timerId = setInterval(() => {
-      //  check if numTries is still lesser than totalTries
-      if (numTries < totalTries) {
-        numTries++
-
-        // if getRestaurants succeeds stop all new interval calls in the future
-        getRestaurants().then(() => clearInterval(timerId))
-      } else {
-        // if `numTries` has exceeded `totalTries` stop fetching for the resource
-
-        fetchError.value = true
-        clearInterval(timerId)
-      }
-    }, fetchInterval)
-  })
-}
+const restaurants = useRestaurantStore()
 
 onMounted(() => {
-  fetchRestaurantLoop(500, 10)
+  restaurants.fetchRestaurantsLoop(
+    RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc',
+    500,
+    10
+  )
 })
 </script>
 
@@ -72,26 +39,37 @@ onMounted(() => {
 
     <!-- Display restaurants -->
     <section class="mx-5">
-      <div class="text-2xl mb-3">Place an Order</div>
-
+      <div class="mb-3 flex">
+        <div class="text-2xl">Place an Order</div>
+        <div class="ml-auto">
+          <Search>
+            <template #btn
+              ><span class="px-3 py-1 btn-red rounded">
+                <SearchIcon
+                  class="w-[25px] h-[25px]"
+                  color="#edf4f2"></SearchIcon>
+              </span> </template
+          ></Search>
+        </div>
+      </div>
       <!-- TODO: Add a different style of loading where there is a skeleton of the layout and there is a loading animation in it -->
       <!-- Loading and Error -->
-      <div class="text-center" v-if="isLoading">
+      <div class="text-center" v-if="restaurants.isLoading">
         <div id="loading-icon" class="w-52 mx-auto">
           <LoadingIcon color="#000"></LoadingIcon>
         </div>
-        <div class="max-w-2xl mx-auto" v-if="fetchError">
+        <div class="max-w-2xl mx-auto" v-if="restaurants.fetchError">
           Please try refreshing or coming back after some time, there seems to
           be an error with the server.
         </div>
       </div>
 
       <!-- Restaurant Cards -->
-      <div v-if="!isLoading">
+      <div v-if="!restaurants.isLoading">
         <!-- <RestaurantCard :restData="fetchedData.data[0]"></RestaurantCard> -->
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5">
           <RestaurantCard
-            v-for="(restaurant, index) in fetchedData.data"
+            v-for="(restaurant, index) in restaurants.restData"
             :key="index"
             :restData="restaurant" />
         </div>
