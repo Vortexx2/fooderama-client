@@ -33,7 +33,7 @@ function search() {
 <template>
   <span class="flex rounded shadow-black shadow-md">
     <!-- icon for the search operation -->
-    <slot name="btn">
+    <slot name="btn" :search="searchQuery">
       <span class="px-3 py-1 btn-red rounded">
         <SearchIcon class="w-[25px] h-[25px]"></SearchIcon>
       </span>

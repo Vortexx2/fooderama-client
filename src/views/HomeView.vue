@@ -49,10 +49,10 @@ function searchRestaurant(query) {
         <div class="text-2xl">Place an Order</div>
         <div class="ml-auto">
           <Search @doneTyping="searchRestaurant">
-            <template #btn
+            <template #btn="{ search }"
               ><span
                 class="px-3 py-1 btn-red rounded"
-                @click="searchRestaurant">
+                @click="searchRestaurant(search)">
                 <SearchIcon
                   class="w-[25px] h-[25px]"
                   color="#edf4f2"></SearchIcon>
