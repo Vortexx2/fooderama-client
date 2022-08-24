@@ -10,6 +10,11 @@ const props = defineProps({
     required: false,
     default: 'Search',
   },
+  doneTypingInterval: {
+    type: Number,
+    required: false,
+    default: 500,
+  },
 })
 
 const emit = defineEmits(['doneTyping'])
@@ -17,12 +22,11 @@ const emit = defineEmits(['doneTyping'])
 const searchQuery = ref('')
 
 let typingTimer
-const doneTypingInterval = 3000
 
 function doneTyping() {
   clearTimeout(typingTimer)
 
-  typingTimer = setTimeout(search, doneTypingInterval)
+  typingTimer = setTimeout(search, props.doneTypingInterval)
 }
 
 function search() {

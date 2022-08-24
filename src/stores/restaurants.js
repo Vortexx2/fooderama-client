@@ -7,8 +7,13 @@ const RESTAURANTS_ENDPOINT = 'http://localhost:4000/api/v1/restaurants'
 export const useRestaurantStore = defineStore('restaurants', {
   state: () => {
     return {
+      /** Array containing all of the fetched restaurants */
       restData: [],
+
+      /** Indicates if the restaurants have still not been fetched */
       isLoading: true,
+
+      /** If the fetching is failed, changes to true */
       fetchError: false,
     }
   },
