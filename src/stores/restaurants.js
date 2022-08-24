@@ -12,6 +12,41 @@ export const useRestaurantStore = defineStore('restaurants', {
       fetchError: false,
     }
   },
+  getters: {
+    /**
+     * `searchedRestaurants(searchQuery)` is used to filter the already stored restaurants by search query. It searches restaurant based on the restaurant name and the cuisines it has.
+     * @param {object} state state used to access the restData
+     * @returns
+     */
+    searchedRestaurants: state => {
+      return searchQuery => {
+        if (searchQuery === '') {
+          return state.restData
+        }
+
+        return state.restData.filter(restaurant => {
+          // check every restaurants name and cuisines
+          return searchQuery
+            .toLowerCase()
+            .split(' ')
+            .every(word => {
+              // check if search query is in the name of the restaurant
+              const isInRestName = restaurant.restName
+                .toLowerCase()
+                .includes(word)
+
+              // and return true
+              if (isInRestName) return true
+
+              // check if search query is in any of the cuisines associated with the restaurant and return true even if it exists on one of the cuisines
+              return restaurant.Cuisines.some(cuisine =>
+                cuisine.cuisineName.toLowerCase().includes(word)
+              )
+            })
+        })
+      }
+    },
+  },
   actions: {
     async fetchRestaurants(url = RESTAURANTS_ENDPOINT) {
       this.restData = (await axios.get(url)).data

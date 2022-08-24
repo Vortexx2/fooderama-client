@@ -1,5 +1,5 @@
 <script setup>
-import axios from 'axios'
+import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 
 import config from '../config'
@@ -15,6 +15,8 @@ import SearchIcon from '../components/icons/SearchIcon.vue'
 const RESTAURANT_ENDPOINT = config.BASE_API_URL + 'restaurants'
 
 const restaurants = useRestaurantStore()
+const searchQuery = ref('')
+const { searchedRestaurants } = storeToRefs(restaurants)
 
 onMounted(() => {
   restaurants.fetchRestaurantsLoop(
@@ -23,6 +25,10 @@ onMounted(() => {
     10
   )
 })
+
+function searchRestaurant(query) {
+  searchQuery.value = query
+}
 </script>
 
 <template>
@@ -42,9 +48,11 @@ onMounted(() => {
       <div class="mb-3 flex">
         <div class="text-2xl">Place an Order</div>
         <div class="ml-auto">
-          <Search>
+          <Search @doneTyping="searchRestaurant">
             <template #btn
-              ><span class="px-3 py-1 btn-red rounded">
+              ><span
+                class="px-3 py-1 btn-red rounded"
+                @click="searchRestaurant">
                 <SearchIcon
                   class="w-[25px] h-[25px]"
                   color="#edf4f2"></SearchIcon>
@@ -66,10 +74,9 @@ onMounted(() => {
 
       <!-- Restaurant Cards -->
       <div v-if="!restaurants.isLoading">
-        <!-- <RestaurantCard :restData="fetchedData.data[0]"></RestaurantCard> -->
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5">
           <RestaurantCard
-            v-for="(restaurant, index) in restaurants.restData"
+            v-for="(restaurant, index) in searchedRestaurants(searchQuery)"
             :key="index"
             :restData="restaurant" />
         </div>

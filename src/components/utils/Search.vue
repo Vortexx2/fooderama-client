@@ -12,7 +12,22 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['doneTyping'])
+
 const searchQuery = ref('')
+
+let typingTimer
+const doneTypingInterval = 3000
+
+function doneTyping() {
+  clearTimeout(typingTimer)
+
+  typingTimer = setTimeout(search, doneTypingInterval)
+}
+
+function search() {
+  emit('doneTyping', searchQuery.value)
+}
 </script>
 
 <template>
@@ -30,7 +45,8 @@ const searchQuery = ref('')
         type="text"
         class="h-full w-full rounded-r-lg bg-cultured text-black text-md px-2 focus:outline-none focus:outline-1"
         :placeholder="defaultSearchValue"
-        v-model="searchQuery" />
+        v-model="searchQuery"
+        @keyup="doneTyping" />
     </span>
   </span>
 </template>
