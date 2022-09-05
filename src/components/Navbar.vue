@@ -5,6 +5,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import CartIcon from './icons/CartIcon.vue'
 import HamburgerIcon from './icons/HamburgerIcon.vue'
 import CrossIcon from './icons/CrossIcon.vue'
+// Imports above
 
 const router = useRouter()
 
