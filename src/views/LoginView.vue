@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
+import { zLoginForm } from '../constants/userSchema'
+// Imports above
+
 const formValues = ref({
   email: '',
   password: '',
@@ -8,7 +11,13 @@ const formValues = ref({
 
 function loginEvent(event) {
   event.preventDefault()
-  console.log(formValues)
+  try {
+    const parsed = zLoginForm.parse(formValues.value)
+
+    console.log(parsed)
+  } catch (err) {
+    console.error(err)
+  }
 }
 </script>
 
