@@ -1,4 +1,16 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const formValues = ref({
+  email: '',
+  password: '',
+})
+
+function loginEvent(event) {
+  event.preventDefault()
+  console.log(formValues)
+}
+</script>
 
 <template>
   <main class="">
@@ -9,7 +21,7 @@
       <div class="text-center text-3xl mb-3">Login</div>
 
       <!-- Login Form -->
-      <form class="mt-10 px-6">
+      <form @submit="loginEvent($event)" class="mt-10 px-6">
         <div>
           <!-- Email input field -->
           <div id="email-pair" class="mb-6">
@@ -20,6 +32,7 @@
               <input
                 type="email"
                 required
+                v-model="formValues.email"
                 id="email"
                 class="rounded-sm text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
@@ -34,6 +47,7 @@
               <input
                 type="password"
                 required
+                v-model="formValues.password"
                 id="password"
                 class="rounded-sm text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
