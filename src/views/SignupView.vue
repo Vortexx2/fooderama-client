@@ -6,6 +6,7 @@ import { ref } from 'vue'
 const formValues = ref({
   email: '',
   password: '',
+  confirmPassword: '',
 })
 
 function signupEvent(event) {
@@ -56,10 +57,27 @@ function signupEvent(event) {
           <!-- <Alert :message="formErrors.passwordError" variant="red"></Alert> -->
         </div>
 
+        <!-- Confirm password input field -->
+        <div class="mb-6">
+          <div class="text-left mb-2">
+            <label for="confirm-password" class="text-lg"
+              >Confirm Password:</label
+            >
+          </div>
+          <div>
+            <input
+              type="password"
+              required
+              v-model="formValues.confirmPassword"
+              id="confirm-password"
+              class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
+          </div>
+        </div>
+
         <div class="text-center">
           <input
             type="submit"
-            value="Login"
+            value="Signup"
             class="btn-dark cursor-pointer px-3 py-2" />
         </div>
       </div>
