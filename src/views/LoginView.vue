@@ -41,15 +41,15 @@ function loginEvent(event) {
 </script>
 
 <template>
-  <main class="">
+  <main>
     <div
       id="container"
-      class="bg-raisinb lg:w-5/12 w-3/4 mx-auto my-32 p-6 rounded-xl shadow-md shadow-black text-white">
+      class="bg-raisinb lg:w-5/12 md:w-3/4 w-11/12 mx-auto my-32 p-6 rounded-xl shadow-md shadow-black text-white">
       <!-- Login Heading -->
       <div class="text-center text-3xl mb-3">Login</div>
 
       <!-- Login Form -->
-      <form @submit="loginEvent($event)" class="mt-10 px-6">
+      <form @submit="loginEvent($event)" class="mt-10 md:px-6">
         <div>
           <!-- Email input field -->
           <div id="email-pair" class="mb-6">
@@ -100,7 +100,7 @@ function loginEvent(event) {
       <!-- Contains link -->
       <div class="text-center text-cultured-2 mt-4">
         <p class="inline-block mr-2">New to Fooderama?</p>
-        <RouterLink to="/signup" class="text-malachite-2"
+        <RouterLink to="signup" class="text-malachite-2"
           >Create account</RouterLink
         >
       </div>
