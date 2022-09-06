@@ -10,13 +10,20 @@ const config = {
   MAX_PASSWORD_LEN: 30,
 }
 
+/** The zod parser object with custom logic for password with strength */
 export const zLoginForm = z.object({
-  email: z.string().trim().max(config.MAX_EMAIL_LEN).regex(config.EMAIL_REGEX),
+  email: z
+    .string()
+    .trim()
+    .max(config.MAX_EMAIL_LEN, {
+      message: 'Email must have at most 256 characters',
+    })
+    .regex(config.EMAIL_REGEX, {
+      message: 'Email is not valid',
+    }),
   password: z
     .string()
     .trim()
-    .min(config.MIN_PASSWORD_LEN)
-    .max(config.MAX_PASSWORD_LEN)
     .refine(
       pass =>
         validator.isStrongPassword(pass, {
@@ -26,10 +33,13 @@ export const zLoginForm = z.object({
           minNumbers: 1,
           minSymbols: 0,
           returnScore: false,
+        }) &&
+        validator.isLength(pass, {
+          max: config.MAX_PASSWORD_LEN,
         }),
       {
         message:
-          'Password must be minimum 6 characters in length with minimum 1 lowercase and 1 numerical character',
+          'Password must be between 6 and 30 characters in length, with minimum 1 lowercase and 1 numerical character',
       }
     ),
 })

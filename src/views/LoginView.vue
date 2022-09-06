@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { ZodError } from 'zod'
 
 import { zLoginForm } from '../constants/userSchema'
+
+import Alert from '../components/utils/Alert.vue'
 // Imports above
 
 const formValues = ref({
@@ -9,14 +12,30 @@ const formValues = ref({
   password: '',
 })
 
+const formErrors = ref({
+  emailError: '',
+  passwordError: '',
+})
+
 function loginEvent(event) {
   event.preventDefault()
+
+  formErrors.value.emailError = formErrors.value.passwordError = ''
+
   try {
     const parsed = zLoginForm.parse(formValues.value)
 
     console.log(parsed)
   } catch (err) {
-    console.error(err)
+    if (err instanceof ZodError) {
+      if (err.flatten().fieldErrors.email) {
+        formErrors.value.emailError = err.flatten().fieldErrors.email[0]
+      }
+
+      if (err.flatten().fieldErrors.password) {
+        formErrors.value.passwordError = err.flatten().fieldErrors.password[0]
+      }
+    }
   }
 }
 </script>
@@ -43,8 +62,9 @@ function loginEvent(event) {
                 required
                 v-model="formValues.email"
                 id="email"
-                class="rounded-sm text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
+                class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
+            <Alert :message="formErrors.emailError" variant="red"></Alert>
           </div>
 
           <!-- Password input field -->
@@ -58,12 +78,16 @@ function loginEvent(event) {
                 required
                 v-model="formValues.password"
                 id="password"
-                class="rounded-sm text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
+                class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
+            <Alert :message="formErrors.passwordError" variant="red"></Alert>
           </div>
 
           <div class="text-center">
-            <input type="submit" value="Login" class="btn-red px-3 py-2" />
+            <input
+              type="submit"
+              value="Login"
+              class="btn-dark cursor-pointer px-3 py-2" />
           </div>
         </div>
       </form>
