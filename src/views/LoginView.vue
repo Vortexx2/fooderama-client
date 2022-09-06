@@ -12,29 +12,17 @@ const formValues = ref({
   password: '',
 })
 
-const formErrors = ref({
-  emailError: '',
-  passwordError: '',
-})
+const loginError = ref('')
 
 function loginEvent(event) {
   event.preventDefault()
 
-  formErrors.value.emailError = formErrors.value.passwordError = ''
-
   try {
     const parsed = zLoginForm.parse(formValues.value)
-
-    console.log(parsed)
+    loginError.value = ''
   } catch (err) {
     if (err instanceof ZodError) {
-      if (err.flatten().fieldErrors.email) {
-        formErrors.value.emailError = err.flatten().fieldErrors.email[0]
-      }
-
-      if (err.flatten().fieldErrors.password) {
-        formErrors.value.passwordError = err.flatten().fieldErrors.password[0]
-      }
+      loginError.value = 'Invalid email or password'
     }
   }
 }
@@ -64,7 +52,6 @@ function loginEvent(event) {
                 id="email"
                 class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
-            <Alert :message="formErrors.emailError" variant="red"></Alert>
           </div>
 
           <!-- Password input field -->
@@ -80,8 +67,8 @@ function loginEvent(event) {
                 id="password"
                 class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
-            <Alert :message="formErrors.passwordError" variant="red"></Alert>
           </div>
+          <Alert :message="loginError" variant="red"></Alert>
 
           <div class="text-center">
             <input

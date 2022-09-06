@@ -27,7 +27,7 @@ const classes = computed(() => {
 
 <template>
   <transition name="drop-alert">
-    <div v-if="message" class="py-1 px-4 my-2 rounded-sm" :class="classes.div">
+    <div v-if="message" class="py-2 px-4 my-2 rounded-sm" :class="classes.div">
       <p class="text-md" :class="classes.p">{{ message }}</p>
     </div>
   </transition>
