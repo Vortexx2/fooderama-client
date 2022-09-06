@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { ZodError } from 'zod'
 
+import { zSignupForm } from '../constants/userSchema'
+
+import Alert from '../components/utils/Alert.vue'
 // Imports above
 
 const formValues = ref({
@@ -9,9 +13,33 @@ const formValues = ref({
   confirmPassword: '',
 })
 
+const formErrors = ref({
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
+
 function signupEvent(event) {
+  const fields = Object.keys(formValues.value)
   event.preventDefault()
-  console.log(event)
+
+  try {
+    const parsed = zSignupForm.parse(formValues.value)
+
+    // empty all of the errors if parsing of the input was successful
+    for (const field of fields) formErrors.value[field] = ''
+  } catch (err) {
+    if (err instanceof ZodError) {
+      const flattenedErr = err.flatten().fieldErrors
+
+      // assign each error to the respective field that it belongs to
+      for (const field of fields) {
+        if (flattenedErr[field]) {
+          formErrors.value[field] = flattenedErr[field][0]
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -38,7 +66,7 @@ function signupEvent(event) {
               id="email"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <!-- <Alert :message="formErrors.emailError" variant="red"></Alert> -->
+          <Alert :message="formErrors.email" variant="red"></Alert>
         </div>
 
         <!-- Password input field -->
@@ -54,7 +82,7 @@ function signupEvent(event) {
               id="password"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <!-- <Alert :message="formErrors.passwordError" variant="red"></Alert> -->
+          <Alert :message="formErrors.password" variant="red"></Alert>
         </div>
 
         <!-- Confirm password input field -->
@@ -72,6 +100,7 @@ function signupEvent(event) {
               id="confirm-password"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
+          <Alert :message="formErrors.confirmPassword" variant="red"></Alert>
         </div>
 
         <div class="text-center">
