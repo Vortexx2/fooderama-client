@@ -44,7 +44,7 @@ function loginEvent(event) {
   <main class="">
     <div
       id="container"
-      class="bg-raisinb lg:w-5/12 w-3/4 mx-auto my-40 p-6 rounded-xl shadow-md shadow-black text-white">
+      class="bg-raisinb lg:w-5/12 w-3/4 mx-auto my-32 p-6 rounded-xl shadow-md shadow-black text-white">
       <!-- Login Heading -->
       <div class="text-center text-3xl mb-3">Login</div>
 
@@ -91,6 +91,19 @@ function loginEvent(event) {
           </div>
         </div>
       </form>
+
+      <!-- Link to go to signup page -->
+
+      <!-- Horizontal Rule to divide the 2 sections -->
+      <hr class="text-cultured opacity-75 mt-4" />
+
+      <!-- Contains link -->
+      <div class="text-center text-cultured-2 mt-4">
+        <p class="inline-block mr-2">New to Fooderama?</p>
+        <RouterLink to="/signup" class="text-malachite-2"
+          >Create account</RouterLink
+        >
+      </div>
     </div>
   </main>
 </template>
