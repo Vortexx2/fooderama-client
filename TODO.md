@@ -6,5 +6,8 @@
 - [] Add auth
   - [] Add login page
   - [] Add signup page
+    - [] Add name fields
+    - [] Login user directly after signup and notify them that a verification email has been sent and they will need to verify their email before placing an order
+    - [] Add phone number
 
 - [] Add footer section

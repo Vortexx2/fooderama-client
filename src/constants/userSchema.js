@@ -82,3 +82,9 @@ export const zSignupForm = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   })
+  .transform(obj => {
+    return {
+      email: obj.email,
+      password: obj.password,
+    }
+  })

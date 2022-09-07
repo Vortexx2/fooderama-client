@@ -1,43 +1,66 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { ZodError } from 'zod'
+import axios from 'axios'
 
 import { zSignupForm } from '../constants/userSchema'
+import config from '../config'
+import { emptyAllValues } from '../utils/utils'
 
 import Alert from '../components/utils/Alert.vue'
 // Imports above
 
+const router = useRouter()
+
+/** Values that are used to model each field of the form */
 const formValues = ref({
   email: '',
   password: '',
   confirmPassword: '',
 })
 
+/** Values that are used to display the errors that each field might have (upon submitting the form) */
 const formErrors = ref({
   email: '',
   password: '',
   confirmPassword: '',
+  general: '',
 })
 
-function signupEvent(event) {
-  const fields = Object.keys(formValues.value)
+const SIGNUP_ENDPOINT = config.BASE_API_URL + 'users/signup/'
+const formFields = Object.keys(formValues.value)
+
+async function signupEvent(event) {
   event.preventDefault()
+
+  // empty all of the errors
+  // for (const field of formFields) formErrors.value[field] = ''
+  emptyAllValues(formErrors.value)
 
   try {
     const parsed = zSignupForm.parse(formValues.value)
 
-    // empty all of the errors if parsing of the input was successful
-    for (const field of fields) formErrors.value[field] = ''
+    emptyAllValues(formValues.value)
+
+    const response = await axios.post(SIGNUP_ENDPOINT, parsed)
+
+    if (response.status === 200) {
+      router.push('/')
+    }
   } catch (err) {
     if (err instanceof ZodError) {
       const flattenedErr = err.flatten().fieldErrors
 
       // assign each error to the respective field that it belongs to
-      for (const field of fields) {
+      for (const field of formFields) {
         if (flattenedErr[field]) {
           formErrors.value[field] = flattenedErr[field][0]
         }
       }
+    } else {
+      formErrors.value.general =
+        'Network Error. Please try again after some time.'
     }
   }
 }
@@ -103,6 +126,7 @@ function signupEvent(event) {
           <Alert :message="formErrors.confirmPassword" variant="red"></Alert>
         </div>
 
+        <Alert :message="formErrors.general" variant="red"></Alert>
         <div class="text-center">
           <input
             type="submit"

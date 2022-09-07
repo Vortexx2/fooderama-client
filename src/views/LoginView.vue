@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { ZodError } from 'zod'
 
 import { zLoginForm } from '../constants/userSchema'
+import config from '../config'
 
 import Alert from '../components/utils/Alert.vue'
 // Imports above
