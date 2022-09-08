@@ -2,16 +2,17 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ZodError } from 'zod'
-import axios from 'axios'
 
 import { zSignupForm } from '../constants/userSchema'
-import config from '../config'
 import { emptyAllValues } from '../utils/utils'
+import { useUserStore } from '../stores/users'
 
 import Alert from '../components/utils/Alert.vue'
+import { AxiosError } from 'axios'
 // Imports above
 
 const router = useRouter()
+const user = useUserStore()
 
 /** Values that are used to model each field of the form */
 const formValues = ref({
@@ -28,27 +29,22 @@ const formErrors = ref({
   general: '',
 })
 
-const SIGNUP_ENDPOINT = config.BASE_API_URL + 'users/signup/'
 const formFields = Object.keys(formValues.value)
 
 async function signupEvent(event) {
   event.preventDefault()
 
   // empty all of the errors
-  // for (const field of formFields) formErrors.value[field] = ''
   emptyAllValues(formErrors.value)
 
   try {
     const parsed = zSignupForm.parse(formValues.value)
 
+    await user.signup(parsed)
+
     emptyAllValues(formValues.value)
-
-    const response = await axios.post(SIGNUP_ENDPOINT, parsed)
-
-    if (response.status === 200) {
-      router.push('/')
-    }
   } catch (err) {
+    console.error(err)
     if (err instanceof ZodError) {
       const flattenedErr = err.flatten().fieldErrors
 
@@ -58,9 +54,8 @@ async function signupEvent(event) {
           formErrors.value[field] = flattenedErr[field][0]
         }
       }
-    } else {
-      formErrors.value.general =
-        'Network Error. Please try again after some time.'
+    } else if (err instanceof AxiosError) {
+      formErrors.value.general = err.response.data.message
     }
   }
 }
