@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 
 import config from '../config'
-import { useRestaurantStore } from '../stores/restaurants'
+import { useRestaurantStore } from '../stores/restaurants.store'
 
 // Components
 import RestaurantCard from '../components/RestaurantCard.vue'

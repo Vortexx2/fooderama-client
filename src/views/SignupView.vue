@@ -1,11 +1,9 @@
 <script setup>
-import { ref } from 'vue'
-import { z, ZodError } from 'zod'
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { ZodError } from 'zod'
+import { Form, Field } from 'vee-validate'
 
-import { zSignupForm, signupSchema } from '../constants/userSchema'
-import { emptyAllValues } from '../utils/utils'
-import { useUserStore } from '../stores/users'
+import { signupSchema } from '../constants/userSchema'
+import { useUserStore } from '../stores/users.store'
 
 import Alert from '../components/utils/Alert.vue'
 import { AxiosError } from 'axios'
