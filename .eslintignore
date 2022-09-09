@@ -1,0 +1,12 @@
+# packages that must be ignored
+node_modules/
+
+# directories that are made automatically
+.husky/
+lib/
+
+# individual files that reside in the root directory
+vite.config.js
+*.json
+
+src/**/*.cy.js
