@@ -1,31 +1,25 @@
 <script setup>
-import { ZodError } from 'zod'
 import { Form, Field } from 'vee-validate'
 
-import { signupSchema } from '../constants/userSchema'
+import { zSignupForm, signupSchema } from '../constants/userSchema'
 import { useUserStore } from '../stores/users.store'
 
 import Alert from '../components/utils/Alert.vue'
-import { AxiosError } from 'axios'
+import { useRouter } from 'vue-router'
 // Imports above
 
 const user = useUserStore()
-
-async function signupEvent() {
-  // empty all of the errors
-
-  try {
-    await user.signup(parsed)
-  } catch (err) {
-    console.error(err)
-    if (err instanceof ZodError) {
-    } else if (err instanceof AxiosError) {
-    }
-  }
-}
+const router = useRouter()
 
 async function testSignup(values) {
-  console.log(JSON.stringify(values, null, 2))
+  try {
+    const parsed = zSignupForm.parse(values)
+
+    await user.signup(parsed)
+    router.push({ name: 'home' })
+  } catch (err) {
+    console.error(err)
+  }
 }
 </script>
 

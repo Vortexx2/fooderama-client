@@ -1,6 +1,7 @@
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
 import config from '../config'
 // Imports above
@@ -19,9 +20,9 @@ export const useUserStore = defineStore('user', {
       const response = await axios.post(SIGNUP_ENDPOINT, registerUser)
 
       if (response.status === 200) {
-        this.user = response.data
+        const accessToken = response.data.accessToken
+        this.user = jwtDecode(accessToken)
         localStorage.setItem('refreshToken', response.data.refreshToken)
-        router.push({ name: 'home' })
       }
     },
 
