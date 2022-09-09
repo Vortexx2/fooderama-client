@@ -1,5 +1,4 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
 import axios from 'axios'
 
 import Form from '../../components/Form.vue'
@@ -10,12 +9,6 @@ import { restaurantFormFields } from '../../constants/rest.const'
 /* will map fields to properties the field should have like value, required etc. */
 
 const API_URL = config.BASE_API_URL + '/restaurants'
-
-function clearAllValues(obj) {
-  for (const key in obj) {
-    obj[key].value = ''
-  }
-}
 
 /**
  *

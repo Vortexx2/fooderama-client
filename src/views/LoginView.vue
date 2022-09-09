@@ -2,8 +2,6 @@
 import { ref } from 'vue'
 import { ZodError } from 'zod'
 
-import config from '../config'
-
 import Alert from '../components/utils/Alert.vue'
 // Imports above
 

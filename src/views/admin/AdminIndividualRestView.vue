@@ -28,8 +28,6 @@ async function getRestaurantData(url) {
 }
 
 async function editRestaurant(formObj) {
-  const restId = route.params.id
-
   const bodyObj = {}
   Object.keys(formObj).map(field => {
     if (formObj[field].value !== '') bodyObj[field] = formObj[field].value

@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
-import axios, { Axios, AxiosError } from 'axios'
+import axios from 'axios'
 
 import config from '../config'
 // Imports above

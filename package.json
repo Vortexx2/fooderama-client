@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite --mode=development",
     "prettier": "prettier --write .",
-    "lint": "eslint ./src --ext .js,.ts",
+    "lint": "eslint ./src --ext .js,.ts,.vue",
     "prepare": "husky install",
     "precommit": "lint-staged",
     "build": "vite build",

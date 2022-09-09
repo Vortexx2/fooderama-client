@@ -67,7 +67,7 @@ export const useRestaurantStore = defineStore('restaurants', {
       let numTries = 1
 
       // if the initial network request fails
-      this.fetchRestaurants(url).catch(err => {
+      this.fetchRestaurants(url).catch(() => {
         // every `fetchInterval` ms, execute a network request and increment the `numTries` var
         let timerId = setInterval(() => {
           //  check if numTries is still lesser than totalTries
