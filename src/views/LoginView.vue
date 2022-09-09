@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { ZodError } from 'zod'
 
-import { zLoginForm } from '../constants/userSchema'
 import config from '../config'
 
 import Alert from '../components/utils/Alert.vue'
@@ -19,7 +18,6 @@ function loginEvent(event) {
   event.preventDefault()
 
   try {
-    const parsed = zLoginForm.parse(formValues.value)
     loginError.value = ''
   } catch (err) {
     if (err instanceof ZodError) {
