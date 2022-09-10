@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import { Form, Field } from 'vee-validate'
+import { useRouter } from 'vue-router'
+import { AxiosError } from 'axios'
 
 import { zSignupForm, signupSchema } from '../constants/userSchema'
 import { useUserStore } from '../stores/users.store'
 
-import Alert from '../components/utils/Alert.vue'
-import { useRouter } from 'vue-router'
-import { AxiosError } from 'axios'
+import AlertComponent from '../components/utils/AlertComponent.vue'
 // Imports above
 
 const user = useUserStore()
@@ -62,7 +62,9 @@ async function testSignup(values, { resetForm }) {
               id="email"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <Alert :message="errors.email" variant="red"></Alert>
+          <AlertComponent
+            :message="errors.email"
+            class="alert-error"></AlertComponent>
         </div>
 
         <!-- Password input field -->
@@ -77,7 +79,9 @@ async function testSignup(values, { resetForm }) {
               id="password"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <Alert :message="errors.password" variant="red"></Alert>
+          <AlertComponent
+            :message="errors.password"
+            class="alert-error"></AlertComponent>
         </div>
 
         <!-- Confirm password input field -->
@@ -95,10 +99,14 @@ async function testSignup(values, { resetForm }) {
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
 
-          <Alert :message="errors.confirmPassword" variant="red"></Alert>
+          <AlertComponent
+            :message="errors.confirmPassword"
+            class="alert-error"></AlertComponent>
         </div>
 
-        <Alert :message="generalError" variant="red"></Alert>
+        <AlertComponent
+          :message="generalError"
+          class="alert-error"></AlertComponent>
         <div class="text-center">
           <input
             type="submit"
