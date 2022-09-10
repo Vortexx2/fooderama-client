@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { Form, Field } from 'vee-validate'
 
 import { zSignupForm, signupSchema } from '../constants/userSchema'
@@ -6,18 +7,30 @@ import { useUserStore } from '../stores/users.store'
 
 import Alert from '../components/utils/Alert.vue'
 import { useRouter } from 'vue-router'
+import { AxiosError } from 'axios'
 // Imports above
 
 const user = useUserStore()
 const router = useRouter()
 
-async function testSignup(values) {
+const generalError = ref('')
+
+async function testSignup(values, { resetForm }) {
   try {
     const parsed = zSignupForm.parse(values)
+
+    resetForm()
 
     await user.signup(parsed)
     router.push({ name: 'home' })
   } catch (err) {
+    if (err instanceof AxiosError) {
+      if (!err.response.data) {
+        generalError.value = err.message
+      } else {
+        generalError.value = err.response.data.message
+      }
+    }
     console.error(err)
   }
 }
@@ -85,7 +98,7 @@ async function testSignup(values) {
           <Alert :message="errors.confirmPassword" variant="red"></Alert>
         </div>
 
-        <!-- <Alert :message="" variant="red"></Alert> -->
+        <Alert :message="generalError" variant="red"></Alert>
         <div class="text-center">
           <input
             type="submit"
