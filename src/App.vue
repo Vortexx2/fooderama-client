@@ -1,14 +1,26 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Navbar from '@/components/Navbar.vue'
+import { RouterView } from 'vue-router'
+
+import { useUserStore } from './stores/users.store'
+
+import NavbarComponent from '@/components/NavbarComponent.vue'
 import Footer from './components/Footer.vue'
+import { onMounted } from 'vue'
+
+// Imports above
+
+const user = useUserStore()
+
+onMounted(() => {
+  user.decodeTokenSetUser()
+})
 </script>
 
 <template>
   <div class="bg-cultured min-h-screen flex flex-col overflow-hidden">
     <header>
       <div class="wrapper">
-        <Navbar></Navbar>
+        <NavbarComponent></NavbarComponent>
       </div>
     </header>
 

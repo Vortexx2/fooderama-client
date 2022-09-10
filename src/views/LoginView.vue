@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { ZodError } from 'zod'
 
-import Alert from '../components/utils/Alert.vue'
+import AlertComponent from '../components/utils/AlertComponent.vue'
 // Imports above
 
 const formValues = ref({
@@ -65,7 +65,7 @@ function loginEvent(event) {
                 class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
           </div>
-          <Alert :message="loginError" variant="red"></Alert>
+          <AlertComponent :message="loginError" variant="red"></AlertComponent>
 
           <div class="text-center">
             <input

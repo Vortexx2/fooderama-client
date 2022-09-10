@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+
+import { useUserStore } from '../stores/users.store'
 
 import CartIcon from './icons/CartIcon.vue'
 import HamburgerIcon from './icons/HamburgerIcon.vue'
@@ -8,16 +11,15 @@ import CrossIcon from './icons/CrossIcon.vue'
 // Imports above
 
 const router = useRouter()
+const user = useUserStore()
 
 const colors = ref({
   cultured: '#edf4f2',
 })
-
 const dropDownOpen = ref(false)
+const { isLoggedIn } = storeToRefs(user)
 
-/**
- * Toggles the dropdown by toggling its display state.
- */
+/** Toggles the dropdown by toggling its display state. */
 function toggleDropdown() {
   dropDownOpen.value = !dropDownOpen.value
 }
@@ -50,9 +52,19 @@ function clickedDropdownLink(path) {
     </RouterLink>
 
     <!-- Login Button -->
-    <RouterLink to="/login" class="align-middle ml-5 mr-2 hidden md:inline">
+    <RouterLink
+      to="/login"
+      v-if="!isLoggedIn"
+      class="align-middle ml-5 mr-2 hidden md:inline">
       <button class="btn-dark hover:-translate-y-0.5">Login</button>
     </RouterLink>
+
+    <!-- Avatar -->
+    <div v-if="isLoggedIn" class="avatar ml-2 cursor-pointer">
+      <div class="w-10 rounded-full">
+        <img src="../assets/images/user-avatar.jpg" />
+      </div>
+    </div>
 
     <!-- Hamburger menu -->
     <span class="ml-auto cursor-pointer md:hidden" @click="toggleDropdown">
@@ -86,9 +98,16 @@ function clickedDropdownLink(path) {
             Cart
           </div>
           <div
-            class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black"
-            @click="clickedDropdownLink('/login')">
+            v-if="!isLoggedIn"
+            @click="clickedDropdownLink('/login')"
+            class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
             Login
+          </div>
+          <div
+            v-if="isLoggedIn"
+            @click="clickedDropdownLink('/user/profile')"
+            class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
+            Profile
           </div>
         </div>
       </div>
