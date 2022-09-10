@@ -9,10 +9,10 @@ import { onMounted } from 'vue'
 
 // Imports above
 
-const user = useUserStore()
+const userStore = useUserStore()
 
 onMounted(() => {
-  user.decodeTokenSetUser()
+  userStore.decodeTokenSetUser()
 })
 </script>
 

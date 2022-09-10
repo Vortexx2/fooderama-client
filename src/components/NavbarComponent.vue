@@ -11,13 +11,13 @@ import CrossIcon from './icons/CrossIcon.vue'
 // Imports above
 
 const router = useRouter()
-const user = useUserStore()
+const userStore = useUserStore()
 
 const colors = ref({
   cultured: '#edf4f2',
 })
 const dropDownOpen = ref(false)
-const { isLoggedIn } = storeToRefs(user)
+const { isLoggedIn } = storeToRefs(userStore)
 
 /** Toggles the dropdown by toggling its display state. */
 function toggleDropdown() {

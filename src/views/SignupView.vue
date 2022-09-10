@@ -10,7 +10,7 @@ import { useUserStore } from '../stores/users.store'
 import AlertComponent from '../components/utils/AlertComponent.vue'
 // Imports above
 
-const user = useUserStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 const generalError = ref('')
@@ -21,7 +21,7 @@ async function testSignup(values, { resetForm }) {
 
     resetForm()
 
-    await user.signup(parsed)
+    await userStore.signup(parsed)
     router.push({ name: 'home' })
   } catch (err) {
     if (err instanceof AxiosError) {
