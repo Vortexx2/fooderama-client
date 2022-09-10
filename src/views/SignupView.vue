@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, h, render } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
@@ -62,9 +62,11 @@ async function testSignup(values, { resetForm }) {
               id="email"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <AlertComponent
-            :message="errors.email"
-            class="alert-error"></AlertComponent>
+          <AlertComponent v-if="errors.email" class="alert-error">
+            <template #message>
+              <p class="text-md">{{ errors.email }}</p>
+            </template>
+          </AlertComponent>
         </div>
 
         <!-- Password input field -->
@@ -79,9 +81,11 @@ async function testSignup(values, { resetForm }) {
               id="password"
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
-          <AlertComponent
-            :message="errors.password"
-            class="alert-error"></AlertComponent>
+          <AlertComponent v-if="errors.password" class="alert-error">
+            <template #message>
+              <p class="text-md">{{ errors.password }}</p>
+            </template>
+          </AlertComponent>
         </div>
 
         <!-- Confirm password input field -->
@@ -99,14 +103,18 @@ async function testSignup(values, { resetForm }) {
               class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
           </div>
 
-          <AlertComponent
-            :message="errors.confirmPassword"
-            class="alert-error"></AlertComponent>
+          <AlertComponent v-if="errors.confirmPassword" class="alert-error">
+            <template #message>
+              <p class="text-md">{{ errors.confirmPassword }}</p>
+            </template>
+          </AlertComponent>
         </div>
 
-        <AlertComponent
-          :message="generalError"
-          class="alert-error"></AlertComponent>
+        <AlertComponent v-if="generalError" class="alert-error">
+          <template #message>
+            <p class="text-md">{{ generalError }}</p>
+          </template>
+        </AlertComponent>
         <div class="text-center">
           <input
             type="submit"

@@ -1,17 +1,10 @@
-<script setup>
-defineProps({
-  message: {
-    type: String,
-    required: false,
-  },
-})
-</script>
+<script setup></script>
 
 <template>
   <transition name="drop-alert">
     <!-- <div v-if="message" class="py-2 px-4 my-2 rounded-sm" :class="classes.div"> -->
-    <div v-if="message" class="alert">
-      <p class="text-md">{{ message }}</p>
+    <div class="alert">
+      <slot name="message"></slot>
     </div>
   </transition>
 </template>
