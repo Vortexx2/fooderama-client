@@ -6,6 +6,8 @@ import config from '../config'
 // Imports above
 
 const SIGNUP_ENDPOINT = config.BASE_API_URL + 'users/signup/'
+const LOGIN_ENDPOINT = config.BASE_API_URL + 'users/login'
+const LOGOUT_ENDPOINT = config.BASE_API_URL + 'users/logout'
 const REFRESH_ENDPOINT = config.BASE_API_URL + 'users/refresh/'
 
 export const useUserStore = defineStore('user', {
@@ -31,7 +33,19 @@ export const useUserStore = defineStore('user', {
         this.accessToken = accessToken
         localStorage.setItem('accessToken', accessToken)
 
-        this.decodeTokenSetUser()
+        await this.decodeTokenSetUser()
+      }
+    },
+
+    async login(loginUser) {
+      const response = await axios.post(LOGIN_ENDPOINT, loginUser)
+
+      if (response.status === 200) {
+        const { accessToken } = response.data
+        this.accessToken = accessToken
+        localStorage.setItem('accessToken', accessToken)
+
+        await this.decodeTokenSetUser()
       }
     },
 
@@ -49,24 +63,29 @@ export const useUserStore = defineStore('user', {
           this.decodeTokenSetUser()
         }
       } catch (err) {
-        this.logout()
+        await this.logout()
       }
     },
 
     /** Decode accessToken that is in memory, and assign the object from the decoded `accessToken` to the `user` */
-    decodeTokenSetUser() {
+    async decodeTokenSetUser() {
       // if accessToken is not specified in memory or in localStorage, logout and redirect user to the login page
 
       try {
         this.user = jwtDecode(this.accessToken)
       } catch (err) {
-        this.logout()
+        await this.logout()
       }
     },
 
-    logout() {
+    async logout() {
       this.user = null
       localStorage.removeItem('accessToken')
+
+      const response = await axios.get(LOGOUT_ENDPOINT, {
+        withCredentials: true,
+      })
+      console.log(response)
     },
   },
 })

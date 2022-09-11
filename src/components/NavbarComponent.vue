@@ -66,6 +66,13 @@ function clickedDropdownLink(path) {
       </div>
     </div>
 
+    <button
+      v-if="isLoggedIn"
+      @click="userStore.logout"
+      class="ml-2 btn btn-primary">
+      logout
+    </button>
+
     <!-- Hamburger menu -->
     <span class="ml-auto cursor-pointer md:hidden" @click="toggleDropdown">
       <HamburgerIcon
