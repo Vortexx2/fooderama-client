@@ -11,8 +11,8 @@ import { onMounted } from 'vue'
 
 const userStore = useUserStore()
 
-onMounted(() => {
-  userStore.decodeTokenSetUser()
+onMounted(async () => {
+  await userStore.refreshAccessToken()
 })
 </script>
 

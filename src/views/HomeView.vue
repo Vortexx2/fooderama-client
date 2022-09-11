@@ -22,8 +22,6 @@ const userStore = useUserStore()
 const searchQuery = ref('')
 const { searchedRestaurants } = storeToRefs(restaurants)
 
-const NOT_VERIFIED_MESSAGE = `Your email <a href=${userStore.user.email}>${userStore.user.email}</a> has not been verified yet.`
-
 onMounted(() => {
   restaurants.fetchRestaurantsLoop(
     RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc',
@@ -40,8 +38,18 @@ function searchRestaurant(query) {
 <template>
   <div>
     <!-- Display to be confirmed if email is not confirmed -->
-    <aside v-if="!userStore.user.confirmed">
-      <AlertComponent :message="NOT_VERIFIED_MESSAGE"></AlertComponent>
+    <aside v-if="userStore.user && !userStore.user.activated" class="mt-3">
+      <AlertComponent>
+        <template #message>
+          <p class="text-lg">
+            Your email
+            <a :href="userStore.user.email" class="link link-accent">{{
+              userStore.user.email
+            }}</a>
+            has not been verified yet
+          </p>
+        </template>
+      </AlertComponent>
     </aside>
     <main class="font-montserrat subpixel-antialiased overflow-x-hidden">
       <!-- Info and tagline -->

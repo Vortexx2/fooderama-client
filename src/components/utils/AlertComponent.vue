@@ -3,7 +3,7 @@
 <template>
   <transition name="drop-alert">
     <!-- <div v-if="message" class="py-2 px-4 my-2 rounded-sm" :class="classes.div"> -->
-    <div class="alert">
+    <div class="alert shadow-lg">
       <slot name="message"></slot>
     </div>
   </transition>

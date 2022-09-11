@@ -65,7 +65,11 @@ function loginEvent(event) {
                 class="rounded-md text-lg py-1 px-2 w-full text-black transition border-3 border-raisinb focus:outline-none focus:border-malachite-2 focus:border-3" />
             </div>
           </div>
-          <AlertComponent :message="loginError" variant="red"></AlertComponent>
+          <AlertComponent v-if="loginError" class="alert-error">
+            <template #message>
+              <p class="text-md">{{ loginError }}</p>
+            </template>
+          </AlertComponent>
 
           <div class="text-center">
             <input
