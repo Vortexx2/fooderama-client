@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
 
   getters: {
     isLoggedIn() {
-      return this.user ? true : false
+      return this.accessToken ? true : false
     },
   },
 
@@ -38,7 +38,9 @@ export const useUserStore = defineStore('user', {
     },
 
     async login(loginUser) {
-      const response = await axios.post(LOGIN_ENDPOINT, loginUser)
+      const response = await axios.post(LOGIN_ENDPOINT, loginUser, {
+        withCredentials: true,
+      })
 
       if (response.status === 200) {
         const { accessToken } = response.data
@@ -60,9 +62,10 @@ export const useUserStore = defineStore('user', {
           this.accessToken = accessToken
           localStorage.setItem('accessToken', accessToken)
 
-          this.decodeTokenSetUser()
+          await this.decodeTokenSetUser()
         }
       } catch (err) {
+        console.log(err)
         await this.logout()
       }
     },
@@ -85,7 +88,6 @@ export const useUserStore = defineStore('user', {
       const response = await axios.get(LOGOUT_ENDPOINT, {
         withCredentials: true,
       })
-      console.log(response)
     },
   },
 })

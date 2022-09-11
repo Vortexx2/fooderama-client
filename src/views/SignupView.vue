@@ -1,5 +1,5 @@
 <script setup>
-import { ref, h, render } from 'vue'
+import { ref } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'

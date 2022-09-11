@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useUserStore } from '../stores/users.store'
+// Imports above
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -12,11 +15,23 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
+      beforeEnter: (to, from) => {
+        const userStore = useUserStore()
+        if (userStore.isLoggedIn) return { name: 'home' }
+
+        return true
+      },
     },
     {
       path: '/signup',
       name: 'signup',
       component: () => import('../views/SignupView.vue'),
+      beforeEnter: (to, from) => {
+        const userStore = useUserStore()
+        if (userStore.isLoggedIn) return { name: 'home' }
+
+        return true
+      },
     },
     {
       path: '/admin/restaurants',
