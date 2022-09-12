@@ -60,16 +60,19 @@ function clickedDropdownLink(path) {
     </RouterLink>
 
     <!-- Avatar -->
-    <div v-if="isLoggedIn" class="avatar ml-2 cursor-pointer">
+    <div
+      v-if="isLoggedIn"
+      class="avatar ml-2 cursor-pointer hidden md:inline-block">
       <div class="w-10 rounded-full">
         <img src="../assets/images/user-avatar.jpg" />
       </div>
     </div>
 
+    <!-- Logout button -->
     <button
       v-if="isLoggedIn"
       @click="userStore.logout"
-      class="ml-2 btn btn-primary">
+      class="ml-2 btn btn-primary hidden md:inline-block">
       logout
     </button>
 
@@ -94,27 +97,42 @@ function clickedDropdownLink(path) {
             class="w-[25px] h-[25px]"></CrossIcon>
         </div>
         <div class="flex flex-col">
+          <!-- Home -->
           <div
             class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black"
             @click="clickedDropdownLink('/')">
             Home
           </div>
+
+          <!-- Cart -->
           <div
             class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black"
             @click="clickedDropdownLink('/cart')">
             Cart
           </div>
+
+          <!-- Login -->
           <div
             v-if="!isLoggedIn"
             @click="clickedDropdownLink('/login')"
             class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
             Login
           </div>
+
+          <!-- Profile -->
           <div
             v-if="isLoggedIn"
             @click="clickedDropdownLink('/user/profile')"
             class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
             Profile
+          </div>
+
+          <!-- Logout -->
+          <div
+            v-if="isLoggedIn"
+            @click="userStore.logout"
+            class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
+            Logout
           </div>
         </div>
       </div>
