@@ -72,4 +72,10 @@ const router = createRouter({
   ],
 })
 
+// before each route, set user from the accessToken  that is present in localStorage
+router.beforeEach(() => {
+  const userStore = useUserStore()
+  userStore.decodeTokenSetUser()
+})
+
 export default router
