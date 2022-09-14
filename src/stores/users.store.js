@@ -17,8 +17,18 @@ export const useUserStore = defineStore('user', {
   }),
 
   getters: {
+    /** checks if `accessToken` exists */
     isLoggedIn() {
       return this.accessToken ? true : false
+    },
+
+    /** checks if the role of the user in state is admin */
+    isAdmin() {
+      return this.user && this.user.role === 'admin'
+    },
+    /** checks if the role of the user in state is manager */
+    isManager() {
+      return this.user && this.user.role === 'manager'
     },
   },
 

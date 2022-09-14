@@ -34,6 +34,20 @@ const router = createRouter({
       },
     },
     {
+      path: '/admin',
+      name: 'admin-dashboard',
+      component: () => import('../views/admin/DashboardView.vue'),
+      beforeEnter: (to, from) => {
+        const userStore = useUserStore()
+        if (userStore.isAdmin || userStore.isManager) {
+          console.log('TRUE')
+          return true
+        }
+
+        return { name: 'home' }
+      },
+    },
+    {
       path: '/admin/restaurants',
       name: 'admin',
       component: () => import('../views/admin/AdminRestaurantsView.vue'),
