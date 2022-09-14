@@ -40,11 +40,10 @@ const router = createRouter({
       beforeEnter: (to, from) => {
         const userStore = useUserStore()
         if (userStore.isAdmin || userStore.isManager) {
-          console.log('TRUE')
           return true
         }
 
-        return { name: 'home' }
+        return { name: 'login' }
       },
     },
     {

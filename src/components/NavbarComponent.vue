@@ -61,7 +61,7 @@ function clickedDropdownLink(path) {
 
     <!-- Avatar -->
     <div
-      v-if="isLoggedIn"
+      v-if="userStore.isLoggedIn"
       class="avatar ml-2 cursor-pointer hidden md:inline-block">
       <div class="w-10 rounded-full">
         <img src="../assets/images/user-avatar.jpg" />
@@ -70,7 +70,7 @@ function clickedDropdownLink(path) {
 
     <!-- Logout button -->
     <button
-      v-if="isLoggedIn"
+      v-if="userStore.isLoggedIn"
       @click="userStore.logout"
       class="ml-2 btn btn-primary hidden md:inline-block">
       logout

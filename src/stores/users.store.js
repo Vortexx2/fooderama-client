@@ -93,6 +93,7 @@ export const useUserStore = defineStore('user', {
 
     async logout() {
       this.user = null
+      this.accessToken = ''
       localStorage.removeItem('accessToken')
 
       const response = await axios.get(LOGOUT_ENDPOINT, {
