@@ -51,7 +51,7 @@ function searchRestaurant(query) {
         </template>
       </AlertComponent>
     </aside>
-    <main class="font-montserrat subpixel-antialiased overflow-x-hidden">
+    <main class="subpixel-antialiased overflow-x-hidden">
       <!-- Info and tagline -->
       <section class="my-4 text-center">
         <div class="capitalize text-3xl font-bold">

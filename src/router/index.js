@@ -45,22 +45,28 @@ const router = createRouter({
 
         return { name: 'login' }
       },
+      children: [
+        {
+          path: '',
+          component: () => import('../views/admin/DashboardHomeView.vue'),
+        },
+      ],
     },
-    {
-      path: '/admin/restaurants',
-      name: 'admin',
-      component: () => import('../views/admin/AdminRestaurantsView.vue'),
-    },
-    {
-      path: '/admin/restaurants/addrest',
-      name: 'addrest',
-      component: () => import('../views/admin/AddRestView.vue'),
-    },
-    {
-      path: '/admin/restaurants/:id',
-      name: 'individual restaurants',
-      component: () => import('../views/admin/AdminIndividualRestView.vue'),
-    },
+    // {
+    //   path: '/admin/restaurants',
+    //   name: 'admin',
+    //   component: () => import('../views/admin/AdminRestaurantsView.vue'),
+    // },
+    // {
+    //   path: '/admin/restaurants/addrest',
+    //   name: 'addrest',
+    //   component: () => import('../views/admin/AddRestView.vue'),
+    // },
+    // {
+    //   path: '/admin/restaurants/:id',
+    //   name: 'individual restaurants',
+    //   component: () => import('../views/admin/AdminIndividualRestView.vue'),
+    // },
     // {
     //   path: '/about',
     //   name: 'about',
