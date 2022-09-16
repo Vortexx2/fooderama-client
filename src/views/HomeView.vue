@@ -59,8 +59,8 @@ function searchRestaurant(query) {
       </div>
     </section>
 
-    <div class="mb-3 flex">
-      <div class="text-2xl">Edit a Restaurant</div>
+    <div class="mb-3 flex mx-6">
+      <div class="text-2xl">Place an Order</div>
       <div class="ml-auto">
         <Search @doneTyping="searchRestaurant">
           <template #btn="{ search }"

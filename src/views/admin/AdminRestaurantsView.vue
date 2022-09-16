@@ -32,7 +32,7 @@ function searchRestaurant(search) {
 
 <template>
   <div>
-    <div class="mb-3 flex">
+    <div class="mb-3 mx-6 flex">
       <div class="text-2xl">Edit a Restaurant</div>
       <div class="ml-auto">
         <Search @doneTyping="searchRestaurant">
