@@ -32,6 +32,11 @@ function clickedDropdownLink(path) {
   dropDownOpen.value = false
   router.push(path)
 }
+
+async function logoutEvent() {
+  router.push({ name: 'home' })
+  await userStore.logout()
+}
 </script>
 
 <template>
@@ -71,7 +76,7 @@ function clickedDropdownLink(path) {
     <!-- Logout button -->
     <button
       v-if="userStore.isLoggedIn"
-      @click="userStore.logout"
+      @click="logoutEvent"
       class="ml-2 btn btn-primary hidden md:inline-block">
       logout
     </button>
@@ -130,7 +135,7 @@ function clickedDropdownLink(path) {
           <!-- Logout -->
           <div
             v-if="isLoggedIn"
-            @click="userStore.logout"
+            @click="logoutEvent"
             class="text-2xl p-5 shadow-sm shadow-black transition cursor-pointer hover:bg-raisinb-5 hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black">
             Logout
           </div>

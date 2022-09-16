@@ -24,11 +24,7 @@ async function loginEvent(values, { resetForm }) {
     router.push({ name: 'home' })
   } catch (err) {
     if (err instanceof AxiosError) {
-      if (!err.response.data) {
-        loginError.value = err.message
-      } else {
-        loginError.value = err.response.data.message
-      }
+      loginError.value = err.response?.data?.message || err.message
     }
 
     console.error(err)

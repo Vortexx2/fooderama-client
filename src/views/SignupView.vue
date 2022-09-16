@@ -25,11 +25,7 @@ async function testSignup(values, { resetForm }) {
     router.push({ name: 'home' })
   } catch (err) {
     if (err instanceof AxiosError) {
-      if (!err.response.data) {
-        generalError.value = err.message
-      } else {
-        generalError.value = err.response.data.message
-      }
+      generalError.value = err.response?.data?.message || err.message
     }
     console.error(err)
   }
