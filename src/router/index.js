@@ -48,13 +48,24 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'dashboard-options',
+          name: 'admin-dashboard-options',
           component: () => import('../views/admin/DashboardHomeView.vue'),
         },
         {
           path: 'restaurants',
-          name: 'admin-restaurants',
+          name: 'admin-edit-restaurants',
           component: () => import('../views/admin/AdminRestaurantsView.vue'),
+        },
+        {
+          path: 'restaurants/create',
+          name: 'admin-create-restaurant',
+          component: () =>
+            import('../views/admin/AdminCreateRestaurantView.vue'),
+        },
+        {
+          path: 'restaurants/:id',
+          name: 'admin-edit',
+          component: () => import('../views/admin/EditRestaurantView.vue'),
         },
       ],
     },

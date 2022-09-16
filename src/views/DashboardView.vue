@@ -13,6 +13,7 @@ const { user } = storeToRefs(userStore)
       <h1 class="font-bold text-center text-5xl my-3">Admin Dashboard</h1>
       <p class="text-center">Hello {{ user.email }}</p>
     </aside>
+    <hr class="my-4 h-[2px] bg-raisinb" />
     <RouterView></RouterView>
   </div>
 </template>
