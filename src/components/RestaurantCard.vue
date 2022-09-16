@@ -1,15 +1,19 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { restaurantResponseProp } from '../constants/rest.const'
+import { computed } from 'vue'
 
 // props for this component
 const props = defineProps({
   restData: {
     type: Object,
     required: true,
-    default(rawProps) {
+    default() {
       return { open: true }
     },
+  },
+  buttonName: {
+    type: String,
+    required: false,
+    default: 'Order',
   },
 })
 
@@ -72,7 +76,7 @@ const cardClasses = computed(() => {
         <button
           class="ml-auto py-1 px-2 btn-red"
           :class="cardClasses.orderButtonClasses">
-          Order
+          {{ buttonName }}
         </button>
       </span>
 

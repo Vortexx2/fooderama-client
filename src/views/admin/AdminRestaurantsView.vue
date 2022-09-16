@@ -1,22 +1,16 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import RestaurantCard from '@/components/RestaurantCard.vue'
+import RestaurantLayout from '../../components/layout/RestaurantLayout.vue'
+import SearchIcon from '../../components/icons/SearchIcon.vue'
+import Search from '../../components/utils/Search.vue'
 
-import config from '@/config'
+// Imports above
 
-const API_URL = config.BASE_API_URL + 'restaurants'
 const router = useRouter()
 const res = ref(null)
-
-onMounted(() => {
-  getRestaurants(API_URL)
-})
-
-async function getRestaurants(url) {
-  res.value = await (await fetch(url)).json()
-}
+const searchQuery = ref('')
 
 /**
  *
@@ -30,23 +24,30 @@ function editRestaurant(restId) {
     },
   })
 }
+
+function searchRestaurant(search) {
+  searchQuery.value = search
+}
 </script>
 
 <template>
-  <div class="p-3 w-full">
-    <div id="header" class="text-center flex align-middle">
-      <h1 class="text-2xl inline-block">Restaurants</h1>
-      <button class="btn-green ml-9">
-        <router-link :to="{ name: 'addrest' }">Create</router-link>
-      </button>
+  <div>
+    <div class="mb-3 flex">
+      <div class="text-2xl">Edit a Restaurant</div>
+      <div class="ml-auto">
+        <Search @doneTyping="searchRestaurant">
+          <template #btn="{ search }"
+            ><span
+              class="px-3 py-1 btn-red rounded"
+              @click="searchRestaurant(search)">
+              <SearchIcon
+                class="w-[25px] h-[25px]"
+                color="#edf4f2"></SearchIcon>
+            </span> </template
+        ></Search>
+      </div>
     </div>
-    <main id="main-content">
-      <restaurant-card
-        v-for="(rest, index) in res"
-        :key="index"
-        :restData="rest"
-        class="mt-3"
-        @edit-restaurant="editRestaurant"></restaurant-card>
-    </main>
+    <RestaurantLayout buttonName="Edit" :searchQuery="searchQuery">
+    </RestaurantLayout>
   </div>
 </template>

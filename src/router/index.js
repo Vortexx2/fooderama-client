@@ -48,7 +48,13 @@ const router = createRouter({
       children: [
         {
           path: '',
+          name: 'dashboard-options',
           component: () => import('../views/admin/DashboardHomeView.vue'),
+        },
+        {
+          path: 'restaurants',
+          name: 'admin-restaurants',
+          component: () => import('../views/admin/AdminRestaurantsView.vue'),
         },
       ],
     },

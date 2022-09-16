@@ -5,6 +5,7 @@
     "dev": "vite --mode=development",
     "prettier": "prettier --write .",
     "lint": "eslint ./src --ext .js,.ts,.vue",
+    "lint-fix": "eslint ./src --ext .js,.ts,.vue --fix",
     "prepare": "husky install",
     "precommit": "lint-staged",
     "build": "vite build",

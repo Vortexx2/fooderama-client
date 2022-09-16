@@ -25,7 +25,11 @@
         <h2 class="card-title">Restaurants</h2>
         <p>Monitor Restaurants</p>
         <div class="card-actions">
-          <button class="btn btn-primary btn-sm justify-center">Monitor</button>
+          <RouterLink
+            to="restaurants"
+            class="btn btn-primary btn-sm justify-center"
+            >Monitor</RouterLink
+          >
         </div>
       </div>
     </div>

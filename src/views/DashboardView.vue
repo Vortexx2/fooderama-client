@@ -8,10 +8,10 @@ const { user } = storeToRefs(userStore)
 </script>
 
 <template>
-  <div class="my-5 mx-96">
+  <div class="my-5 mx-5">
     <aside class="w-full text-left">
       <h1 class="font-bold text-center text-5xl my-3">Admin Dashboard</h1>
-      <p class="text-left">Hello {{ user.email }}</p>
+      <p class="text-center">Hello {{ user.email }}</p>
     </aside>
     <RouterView></RouterView>
   </div>
