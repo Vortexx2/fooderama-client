@@ -4,7 +4,7 @@ import { Form, Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 
-import { zSignupForm, signupSchema } from '../constants/userSchema'
+import { signupSchema } from '../constants/user.schema'
 import { useUserStore } from '../stores/users.store'
 
 import AlertComponent from '../components/utils/AlertComponent.vue'
@@ -17,11 +17,9 @@ const generalError = ref('')
 
 async function testSignup(values, { resetForm }) {
   try {
-    const parsed = zSignupForm.parse(values)
-
     resetForm()
 
-    await userStore.signup(parsed)
+    await userStore.signup(values)
     router.push({ name: 'home' })
   } catch (err) {
     if (err instanceof AxiosError) {
