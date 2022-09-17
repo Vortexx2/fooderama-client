@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
@@ -10,6 +11,7 @@ import AlertComponent from '../../components/utils/AlertComponent.vue'
 
 const restaurantStore = useRestaurantStore()
 const networkError = ref('')
+const router = useRouter()
 
 const formObj = [
   {
@@ -47,6 +49,7 @@ const formObj = [
 async function createRestaurant(values) {
   try {
     await restaurantStore.createRestaurant(values)
+    router.push({ name: 'admin-monitor-restaurants' })
   } catch (err) {
     if (err instanceof AxiosError) {
       networkError.value = err.response?.data?.message || err.message

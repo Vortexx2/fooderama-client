@@ -53,7 +53,7 @@ const router = createRouter({
         },
         {
           path: 'restaurants',
-          name: 'admin-edit-restaurants',
+          name: 'admin-monitor-restaurants',
           component: () => import('../views/admin/AdminRestaurantsView.vue'),
         },
         {
