@@ -1,6 +1,15 @@
 <script setup>
+import { ref } from 'vue'
+import { AxiosError } from 'axios'
+
+import { useRestaurantStore } from '../../stores/restaurants.store'
+
 import FormComponent from '../../components/layout/FormComponent.vue'
+import AlertComponent from '../../components/utils/AlertComponent.vue'
 // Imports above
+
+const restaurantStore = useRestaurantStore()
+const networkError = ref('')
 
 const formObj = [
   {
@@ -36,7 +45,14 @@ const formObj = [
 ]
 
 async function createRestaurant(values) {
-  console.log(values)
+  try {
+    await restaurantStore.createRestaurant(values)
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      networkError.value = err.response?.data?.message || err.message
+    }
+    console.error(err)
+  }
 }
 </script>
 
@@ -49,6 +65,11 @@ async function createRestaurant(values) {
       @form-submitted="createRestaurant"
       :fields-obj="formObj"
       submit-button-name="Create"></FormComponent>
+    <AlertComponent v-if="networkError" class="alert-error">
+      <template #message>
+        <p class="text-md">{{ networkError }}</p>
+      </template>
+    </AlertComponent>
   </div>
 </template>
 

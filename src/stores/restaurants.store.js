@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
+
+import { useUserStore } from './users.store'
 // Imports above
+
+const userStore = useUserStore()
 
 const RESTAURANTS_ENDPOINT = 'http://localhost:4000/api/v1/restaurants'
 
@@ -84,6 +88,19 @@ export const useRestaurantStore = defineStore('restaurants', {
           }
         }, fetchInterval)
       })
+    },
+
+    async createRestaurant(creationObject, url = RESTAURANTS_ENDPOINT) {
+      const response = await axios.post(url, creationObject, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${userStore.accessToken}`,
+        },
+      })
+
+      if (response.status === 200) {
+        await this.fetchRestaurants()
+      }
     },
   },
 })
