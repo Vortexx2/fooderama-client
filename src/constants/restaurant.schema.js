@@ -18,6 +18,9 @@ const zRestaurant = z.object({
   description: z.string().trim().min(MIN_DESC_LEN).max(MAX_DESC_LEN).optional(),
   openingTime: z.string().trim().optional(),
   closingTime: z.string().trim().optional(),
+  Cuisines: z.array(z.number().int().nonnegative()).max(MAX_CUISINES_CREATION, {
+    message: `Select at most ${MAX_CUISINES_CREATION} cuisines`,
+  }),
 })
 
 /**
@@ -28,4 +31,3 @@ const zCuisinesArray = z
   .max(MAX_CUISINES_CREATION)
 
 export const restaurantSchema = toFormValidator(zRestaurant)
-export const cuisineSchema = toFormValidator(zCuisinesArray)

@@ -1,18 +1,23 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
+import config from '../config'
 import { useUserStore } from './users.store'
 // Imports above
 
 const userStore = useUserStore()
 
-const RESTAURANTS_ENDPOINT = 'http://localhost:4000/api/v1/restaurants'
+const RESTAURANTS_ENDPOINT = config.BASE_API_URL + 'restaurants'
+const CUISINES_ENDPOINT = config.BASE_API_URL + 'cuisines'
 
 export const useRestaurantStore = defineStore('restaurants', {
   state: () => {
     return {
       /** Array containing all of the fetched restaurants */
       restData: [],
+
+      /** All of the cuisines available in the DB */
+      cuisines: [],
 
       /** Indicates if the restaurants have still not been fetched */
       isLoading: true,
@@ -55,11 +60,21 @@ export const useRestaurantStore = defineStore('restaurants', {
         })
       }
     },
+
+    cuisineFieldsToShow: () => ['cuisineName'],
   },
   actions: {
     async fetchRestaurants(url = RESTAURANTS_ENDPOINT) {
       this.restData = (await axios.get(url)).data
       this.isLoading = false
+    },
+
+    async fetchCuisines(url = CUISINES_ENDPOINT) {
+      const response = await axios.get(url)
+
+      if (response.status === 200) {
+        this.cuisines = response.data
+      }
     },
 
     /**

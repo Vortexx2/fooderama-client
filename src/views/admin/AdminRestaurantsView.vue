@@ -9,7 +9,6 @@ import Search from '../../components/utils/Search.vue'
 // Imports above
 
 const router = useRouter()
-const res = ref(null)
 const searchQuery = ref('')
 
 /**
@@ -32,7 +31,7 @@ function searchRestaurant(search) {
 
 <template>
   <div>
-    <div class="mb-3 mx-6 flex">
+    <div class="mx-6 flex">
       <div class="text-2xl">Edit a Restaurant</div>
 
       <RouterLink

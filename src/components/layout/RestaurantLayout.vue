@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="subpixel-antialiased overflow-x-hidden">
+  <main class="py-5 subpixel-antialiased overflow-x-hidden">
     <!-- Display restaurants -->
     <section class="mx-5">
       <!-- TODO: Add a different style of loading where there is a skeleton of the layout and there is a loading animation in it -->
