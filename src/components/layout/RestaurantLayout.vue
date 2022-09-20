@@ -58,7 +58,13 @@ onMounted(() => {
             v-for="(restaurant, index) in searchedRestaurants(searchQuery)"
             :key="index"
             :restData="restaurant"
-            :buttonName="buttonName" />
+            :submitButton="{
+              buttonName,
+              redirectName: {
+                name: 'admin-edit',
+                params: { id: restaurant.restId },
+              },
+            }" />
         </div>
       </div>
     </section>

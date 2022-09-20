@@ -10,10 +10,9 @@ const props = defineProps({
       return { open: true }
     },
   },
-  buttonName: {
-    type: String,
-    required: false,
-    default: 'Order',
+  submitButton: {
+    type: Object,
+    required: true,
   },
 })
 
@@ -73,11 +72,17 @@ const cardClasses = computed(() => {
         </span>
 
         <!-- Order button -->
-        <button
-          class="ml-auto py-1 px-2 btn-red"
-          :class="cardClasses.orderButtonClasses">
-          {{ buttonName }}
-        </button>
+        <RouterLink
+          :to="submitButton.redirectName"
+          custom
+          v-slot="{ navigate }">
+          <button
+            @click="navigate"
+            class="ml-auto py-1 px-2 btn-red"
+            :class="cardClasses.orderButtonClasses">
+            {{ submitButton.buttonName }}
+          </button>
+        </RouterLink>
       </span>
 
       <!-- Cuisines section -->
