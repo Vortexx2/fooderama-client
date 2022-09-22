@@ -65,7 +65,7 @@ const router = createRouter({
         {
           path: 'restaurants/:id',
           name: 'admin-edit',
-          component: () => import('../views/admin/EditRestaurantView.vue'),
+          component: () => import('../views/admin/AdminEditRestaurantView.vue'),
         },
       ],
     },
