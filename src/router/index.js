@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { useUserStore } from '../stores/users.store'
+import { checkNumericalParams } from '../utils/routes.utils'
 // Imports above
 
 const router = createRouter({
@@ -66,6 +67,15 @@ const router = createRouter({
           path: 'restaurants/:id',
           name: 'admin-edit',
           component: () => import('../views/admin/AdminEditRestaurantView.vue'),
+          beforeEnter: (to, from) => {
+            if (!checkNumericalParams(to, ['id'])) {
+              return {
+                name: 'admin-monitor-restaurants',
+              }
+            }
+
+            return true
+          },
         },
       ],
     },
