@@ -62,10 +62,8 @@ export const useRestaurantStore = defineStore('restaurants', {
       }
     },
 
-    getRestaurant: async state => {
+    getRestaurant: state => {
       return restId => {
-        console.log(state.restData)
-
         return state.restData.find(restObj => restObj.restId === restId)
       }
     },

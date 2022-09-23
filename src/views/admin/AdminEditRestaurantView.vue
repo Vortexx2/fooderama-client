@@ -1,18 +1,31 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
 
 import FormComponent from '../../components/layout/FormComponent.vue'
 // Imports above
 
-const route = useRoute()
+const route = useRoute(),
+  router = useRouter()
 const restaurantStore = useRestaurantStore()
+const currRestaurant = ref({})
 
-const restId = parseInt(route.params['restId'], 10)
+onMounted(async () => {
+  const restId = parseInt(route.params['restId'], 10)
 
-onMounted(() => {})
+  currRestaurant.value = restaurantStore.getRestaurant(restId)
+
+  if (!currRestaurant.value) {
+    await restaurantStore.fetchRestaurants()
+    currRestaurant.value = restaurantStore.getRestaurant(restId)
+  }
+
+  if (!currRestaurant.value) {
+    router.push({ name: 'admin-monitor-restaurants' })
+  }
+})
 
 /** Has all of the details required to render the form component */
 const restaurantDetailsForm = [
@@ -54,7 +67,10 @@ const restaurantDetailsForm = [
 
 <template>
   <div>
-    <h1 class="text-2xl">Edit Restaurant:</h1>
+    <h1 class="text-2xl inline-block">Edit Restaurant:</h1>
+    <h1 class="text-2xl inline-block ml-2" v-if="currRestaurant">
+      {{ currRestaurant.restName }}
+    </h1>
 
     <!-- Edit Restaurant Details section -->
     <div
