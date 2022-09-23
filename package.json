@@ -21,6 +21,7 @@
     "daisyui": "^2.25.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.0.16",
     "validator": "^13.7.0",
     "vee-validate": "^4.6.7",
