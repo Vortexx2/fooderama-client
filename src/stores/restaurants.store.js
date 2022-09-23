@@ -24,6 +24,7 @@ export const useRestaurantStore = defineStore('restaurants', {
 
       /** If the fetching is failed, changes to true */
       fetchError: false,
+      cuisineFieldsToShow: ['cuisineName'],
     }
   },
   getters: {
@@ -61,7 +62,13 @@ export const useRestaurantStore = defineStore('restaurants', {
       }
     },
 
-    cuisineFieldsToShow: () => ['cuisineName'],
+    getRestaurant: async state => {
+      return restId => {
+        console.log(state.restData)
+
+        return state.restData.find(restObj => restObj.restId === restId)
+      }
+    },
   },
   actions: {
     async fetchRestaurants(url = RESTAURANTS_ENDPOINT) {

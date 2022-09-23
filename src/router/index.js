@@ -64,11 +64,11 @@ const router = createRouter({
             import('../views/admin/AdminCreateRestaurantView.vue'),
         },
         {
-          path: 'restaurants/:id',
+          path: 'restaurants/:restId',
           name: 'admin-edit',
           component: () => import('../views/admin/AdminEditRestaurantView.vue'),
           beforeEnter: (to, from) => {
-            if (!checkNumericalParams(to, ['id'])) {
+            if (!checkNumericalParams(to, ['restId'])) {
               return {
                 name: 'admin-monitor-restaurants',
               }

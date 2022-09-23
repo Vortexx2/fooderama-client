@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import config from '@/config'
@@ -11,7 +11,7 @@ import RestaurantCard from '../RestaurantCard.vue'
 // Imports above
 
 const RESTAURANT_ENDPOINT = config.BASE_API_URL + 'restaurants'
-// const searchQuery = ref('')
+
 const restaurants = useRestaurantStore()
 const { searchedRestaurants } = storeToRefs(restaurants)
 
@@ -62,7 +62,7 @@ onMounted(() => {
               buttonName,
               redirectName: {
                 name: 'admin-edit',
-                params: { id: restaurant.restId },
+                params: { restId: restaurant.restId },
               },
             }" />
         </div>

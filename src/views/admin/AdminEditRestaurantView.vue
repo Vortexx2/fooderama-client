@@ -1,5 +1,55 @@
 <script setup>
-import { OhVueIcon as vIcon } from 'oh-vue-icons'
+import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
+
+import { useRestaurantStore } from '../../stores/restaurants.store'
+
+import FormComponent from '../../components/layout/FormComponent.vue'
+// Imports above
+
+const route = useRoute()
+const restaurantStore = useRestaurantStore()
+
+const restId = parseInt(route.params['restId'], 10)
+
+onMounted(() => {})
+
+/** Has all of the details required to render the form component */
+const restaurantDetailsForm = [
+  {
+    // field to display in label
+    field: 'Restaurant Name',
+
+    // name that the field will have on the object returned
+    name: 'restName',
+    type: 'text',
+    required: true,
+  },
+  {
+    field: 'Image URL',
+    name: 'restImage',
+    type: 'text',
+    required: false,
+  },
+  {
+    field: 'Description',
+    name: 'description',
+    type: 'text',
+    required: false,
+  },
+  {
+    field: 'Opening Time',
+    name: 'openingTime',
+    type: 'text',
+    required: false,
+  },
+  {
+    field: 'Closing Time',
+    name: 'closingTime',
+    type: 'text',
+    required: false,
+  },
+]
 </script>
 
 <template>
@@ -20,7 +70,9 @@ import { OhVueIcon as vIcon } from 'oh-vue-icons'
         </div>
       </div>
       <div class="collapse-content">
-        <p>tabindex="0" attribute is necessary to make the div focusable</p>
+        <form-component
+          :fields-obj="restaurantDetailsForm"
+          submit-button-name="Update" />
       </div>
     </div>
 
