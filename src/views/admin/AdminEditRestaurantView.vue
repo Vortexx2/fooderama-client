@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 import { AxiosError } from 'axios'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
-import { baseRestaurantSchema } from '../../constants/restaurant.schema'
+import { restaurantWithCuisinesSchema } from '../../constants/restaurant.schema'
 
 import FormComponent from '../../components/layout/FormComponent.vue'
 import AlertComponent from '../../components/utils/AlertComponent.vue'
@@ -17,21 +17,8 @@ const currRestaurant = ref({})
 const networkError = ref('')
 const restId = parseInt(route.params['restId'], 10)
 
-onMounted(async () => {
-  currRestaurant.value = restaurantStore.getRestaurant(restId)
-
-  if (!currRestaurant.value) {
-    await restaurantStore.fetchRestaurants()
-    currRestaurant.value = restaurantStore.getRestaurant(restId)
-  }
-
-  if (!currRestaurant.value) {
-    router.push({ name: 'admin-monitor-restaurants' })
-  }
-})
-
 /** Has all of the details required to render the form component */
-const restaurantDetailsForm = [
+const restaurantDetailsForm = ref([
   {
     // field to display in label
     field: 'Restaurant Name',
@@ -65,10 +52,41 @@ const restaurantDetailsForm = [
     type: 'text',
     required: false,
   },
-]
+])
+
+onMounted(async () => {
+  await restaurantStore.refreshRestaurantsAndCuisines()
+  currRestaurant.value = restaurantStore.getRestaurant(restId)
+
+  if (!currRestaurant.value) {
+    router.push({ name: 'admin-monitor-restaurants' })
+  }
+
+  restaurantDetailsForm.value.push({
+    field: 'Cuisines',
+
+    // the name used to reference
+    name: 'Cuisines',
+    type: 'multiselect',
+
+    // the array that has all of the options the user can select or unselect
+    options: restaurantStore.cuisines,
+
+    // the fields that we want to show in the table
+    fieldHeadings: restaurantStore.cuisineFieldsToShow,
+
+    idReference: 'cuisineId',
+    required: false,
+  })
+})
 
 async function editRestaurantDetails(values) {
   try {
+    if (Object.prototype.hasOwnProperty.call(values, 'Cuisines')) {
+      values.Cuisines = values.Cuisines.map(cuisineIdSelected => {
+        return { cuisineId: cuisineIdSelected }
+      })
+    }
     await restaurantStore.updateRestaurant(restId, values)
     currRestaurant.value = restaurantStore.getRestaurant(restId)
   } catch (err) {
@@ -104,7 +122,7 @@ async function editRestaurantDetails(values) {
         <FormComponent
           :fields-obj="restaurantDetailsForm"
           @form-submitted="editRestaurantDetails"
-          :schema="baseRestaurantSchema"
+          :schema="restaurantWithCuisinesSchema"
           submit-button-name="Update">
           <!-- General error that might occur due to network or validation issues on the backend -->
           <template #networkErrorAlert>

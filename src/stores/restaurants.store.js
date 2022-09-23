@@ -81,6 +81,10 @@ export const useRestaurantStore = defineStore('restaurants', {
       }
     },
 
+    async refreshRestaurantsAndCuisines() {
+      await Promise.allSettled([this.fetchRestaurants(), this.fetchCuisines()])
+    },
+
     /**
      * An asynchronous loop that checks the backend for restaurants for `totalTries` number of times every `fetchInterval` ms. Uses `setInterval` with regular checks to see if the request has been resolved.
      * @param {number} fetchInterval the interval at which to try the backend for information
