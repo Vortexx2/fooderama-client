@@ -15,6 +15,9 @@ const RESTAURANT_ENDPOINT = config.BASE_API_URL + 'restaurants'
 const restaurants = useRestaurantStore()
 const { searchedRestaurants } = storeToRefs(restaurants)
 
+const isLoading = ref(true),
+  fetchError = ref(false)
+
 defineProps({
   searchQuery: {
     type: String,
@@ -26,12 +29,15 @@ defineProps({
     required: true,
   },
 })
-onMounted(() => {
-  restaurants.fetchRestaurantsLoop(
-    RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc',
-    500,
-    10
-  )
+onMounted(async () => {
+  try {
+    await restaurants.fetchRestaurants(
+      RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc'
+    )
+    isLoading.value = false
+  } catch (err) {
+    fetchError.value = true
+  }
 })
 </script>
 
@@ -41,18 +47,18 @@ onMounted(() => {
     <section class="mx-5">
       <!-- TODO: Add a different style of loading where there is a skeleton of the layout and there is a loading animation in it -->
       <!-- Loading and Error -->
-      <div class="text-center" v-if="restaurants.isLoading">
+      <div class="text-center" v-if="isLoading">
         <div id="loading-icon" class="w-52 mx-auto">
           <LoadingIcon color="#000"></LoadingIcon>
         </div>
-        <div class="max-w-2xl mx-auto" v-if="restaurants.fetchError">
+        <div class="max-w-2xl mx-auto" v-if="fetchError">
           Please try refreshing or coming back after some time, there seems to
           be an error with the server.
         </div>
       </div>
 
       <!-- Restaurant Cards -->
-      <div v-if="!restaurants.isLoading">
+      <div v-if="!isLoading">
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5">
           <RestaurantCard
             v-for="(restaurant, index) in searchedRestaurants(searchQuery)"

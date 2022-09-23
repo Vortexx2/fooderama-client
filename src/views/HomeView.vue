@@ -19,14 +19,6 @@ const userStore = useUserStore()
 
 const searchQuery = ref('')
 
-onMounted(() => {
-  restaurants.fetchRestaurantsLoop(
-    RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc',
-    500,
-    10
-  )
-})
-
 function searchRestaurant(query) {
   searchQuery.value = query
 }

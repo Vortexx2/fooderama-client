@@ -72,8 +72,11 @@ export const useRestaurantStore = defineStore('restaurants', {
   },
   actions: {
     async fetchRestaurants(url = RESTAURANTS_ENDPOINT) {
-      this.restData = (await axios.get(url)).data
-      this.isLoading = false
+      const response = await axios.get(url)
+
+      if (response.status === 200) {
+        this.restData = response.data
+      }
     },
 
     async fetchCuisines(url = CUISINES_ENDPOINT) {
@@ -105,7 +108,6 @@ export const useRestaurantStore = defineStore('restaurants', {
           } else {
             // if `numTries` has exceeded `totalTries` stop fetching for the resource
 
-            this.fetchError = true
             clearInterval(timerId)
           }
         }, fetchInterval)
