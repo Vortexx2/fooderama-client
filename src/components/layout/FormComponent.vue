@@ -1,9 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
 import { Form, Field, FieldArray } from 'vee-validate'
-import { findIndex } from 'lodash'
-
-import { restaurantSchema } from '../../constants/restaurant.schema'
 
 import AlertComponent from '../utils/AlertComponent.vue'
 
@@ -18,6 +14,10 @@ const props = defineProps({
   },
   submitButtonName: {
     type: String,
+    required: true,
+  },
+  schema: {
+    type: Object,
     required: true,
   },
 })
@@ -35,10 +35,7 @@ function formSubmit(formObj, { resetForm }) {
 </script>
 
 <template>
-  <Form
-    @submit="formSubmit"
-    :validation-schema="restaurantSchema"
-    v-slot="{ errors }">
+  <Form @submit="formSubmit" :validation-schema="schema" v-slot="{ errors }">
     <!-- Main Labels and Fields -->
     <div v-for="field of fieldsObj" :key="field.name">
       <!-- Loop with label-field pair -->

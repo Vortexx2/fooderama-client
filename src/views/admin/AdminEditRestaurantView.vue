@@ -3,14 +3,17 @@ import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
+import { baseRestaurantSchema } from '../../constants/restaurant.schema'
 
 import FormComponent from '../../components/layout/FormComponent.vue'
+import AlertComponent from '../../components/utils/AlertComponent.vue'
 // Imports above
 
 const route = useRoute(),
   router = useRouter()
 const restaurantStore = useRestaurantStore()
 const currRestaurant = ref({})
+const networkError = ref('')
 
 onMounted(async () => {
   const restId = parseInt(route.params['restId'], 10)
@@ -63,6 +66,10 @@ const restaurantDetailsForm = [
     required: false,
   },
 ]
+
+function editRestaurantDetails(values) {
+  console.log(values)
+}
 </script>
 
 <template>
@@ -86,9 +93,21 @@ const restaurantDetailsForm = [
         </div>
       </div>
       <div class="collapse-content">
-        <form-component
+        <FormComponent
           :fields-obj="restaurantDetailsForm"
-          submit-button-name="Update" />
+          @form-submitted="editRestaurantDetails"
+          :schema="baseRestaurantSchema"
+          submit-button-name="Update">
+          <!-- General error that might occur due to network or validation issues on the backend -->
+          <template #networkErrorAlert>
+            <AlertComponent v-if="networkError" class="alert-error py-2">
+              <!-- message that will be passed to the alert -->
+              <template #message>
+                <p class="text-md">{{ networkError }}</p>
+              </template>
+            </AlertComponent>
+          </template>
+        </FormComponent>
       </div>
     </div>
 
