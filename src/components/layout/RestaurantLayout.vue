@@ -31,9 +31,7 @@ defineProps({
 })
 onMounted(async () => {
   try {
-    await restaurants.fetchRestaurants(
-      RESTAURANT_ENDPOINT + '?cuisines=true&orderby=open&sort=desc'
-    )
+    await restaurants.fetchRestaurants()
     isLoading.value = false
   } catch (err) {
     fetchError.value = true

@@ -19,11 +19,6 @@ export const useRestaurantStore = defineStore('restaurants', {
       /** All of the cuisines available in the DB */
       cuisines: [],
 
-      /** Indicates if the restaurants have still not been fetched */
-      isLoading: true,
-
-      /** If the fetching is failed, changes to true */
-      fetchError: false,
       cuisineFieldsToShow: ['cuisineName'],
     }
   },
@@ -70,7 +65,8 @@ export const useRestaurantStore = defineStore('restaurants', {
   },
   actions: {
     async fetchRestaurants(url = RESTAURANTS_ENDPOINT) {
-      const response = await axios.get(url)
+      const endpointWithOptions = url + '?cuisines=true&orderby=open&sort=desc'
+      const response = await axios.get(endpointWithOptions)
 
       if (response.status === 200) {
         this.restData = response.data
@@ -114,6 +110,20 @@ export const useRestaurantStore = defineStore('restaurants', {
 
     async createRestaurant(creationObject, url = RESTAURANTS_ENDPOINT) {
       const response = await axios.post(url, creationObject, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${userStore.accessToken}`,
+        },
+      })
+
+      if (response.status === 200) {
+        await this.fetchRestaurants()
+      }
+    },
+
+    async updateRestaurant(restId, updationObject) {
+      const updateEndpoint = RESTAURANTS_ENDPOINT + '/' + restId
+      const response = await axios.put(updateEndpoint, updationObject, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${userStore.accessToken}`,

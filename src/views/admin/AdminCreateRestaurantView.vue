@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
-import { restaurantSchema } from '../../constants/restaurant.schema'
+import { baseRestaurantSchema } from '../../constants/restaurant.schema'
 
 import AlertComponent from '../../components/utils/AlertComponent.vue'
 // Imports above
@@ -102,7 +102,7 @@ async function createRestaurant(values) {
     </div>
     <FormComponent
       @form-submitted="createRestaurant"
-      :schema="restaurantSchema"
+      :schema="baseRestaurantSchema"
       :fields-obj="formObj"
       submit-button-name="Create">
       <!-- General error that might occur due to network or validation issues on the backend -->

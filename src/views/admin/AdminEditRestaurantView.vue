@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
+import { AxiosError } from 'axios'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
 import { baseRestaurantSchema } from '../../constants/restaurant.schema'
@@ -14,10 +15,9 @@ const route = useRoute(),
 const restaurantStore = useRestaurantStore()
 const currRestaurant = ref({})
 const networkError = ref('')
+const restId = parseInt(route.params['restId'], 10)
 
 onMounted(async () => {
-  const restId = parseInt(route.params['restId'], 10)
-
   currRestaurant.value = restaurantStore.getRestaurant(restId)
 
   if (!currRestaurant.value) {
@@ -67,8 +67,16 @@ const restaurantDetailsForm = [
   },
 ]
 
-function editRestaurantDetails(values) {
-  console.log(values)
+async function editRestaurantDetails(values) {
+  try {
+    await restaurantStore.updateRestaurant(restId, values)
+    currRestaurant.value = restaurantStore.getRestaurant(restId)
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      networkError.value = err.response?.data?.message || err.message
+    }
+    console.error(err)
+  }
 }
 </script>
 
