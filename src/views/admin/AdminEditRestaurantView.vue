@@ -1,12 +1,11 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { AxiosError } from 'axios'
 
 import { useRestaurantStore } from '../../stores/restaurants.store'
 import { restaurantWithCuisinesSchema } from '../../constants/restaurant.schema'
 
-import FormComponent from '../../components/layout/FormComponent.vue'
 import AlertComponent from '../../components/utils/AlertComponent.vue'
 // Imports above
 
@@ -54,13 +53,8 @@ const restaurantDetailsForm = ref([
   },
 ])
 
-onMounted(async () => {
-  await restaurantStore.refreshRestaurantsAndCuisines()
-  currRestaurant.value = restaurantStore.getRestaurant(restId)
-
-  if (!currRestaurant.value) {
-    router.push({ name: 'admin-monitor-restaurants' })
-  }
+const FormComponent = defineAsyncComponent(async () => {
+  await restaurantStore.fetchCuisines()
 
   restaurantDetailsForm.value.push({
     field: 'Cuisines',
@@ -78,6 +72,16 @@ onMounted(async () => {
     idReference: 'cuisineId',
     required: false,
   })
+  return import('../../components/layout/FormComponent.vue')
+})
+
+onMounted(async () => {
+  await restaurantStore.refreshRestaurantsAndCuisines()
+  currRestaurant.value = restaurantStore.getRestaurant(restId)
+
+  if (!currRestaurant.value) {
+    router.push({ name: 'admin-monitor-restaurants' })
+  }
 })
 
 async function editRestaurantDetails(values) {

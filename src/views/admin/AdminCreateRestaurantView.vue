@@ -13,12 +13,6 @@ const restaurantStore = useRestaurantStore()
 const networkError = ref('')
 const router = useRouter()
 
-const FormComponent = defineAsyncComponent(async () => {
-  await restaurantStore.fetchCuisines()
-
-  return import('../../components/layout/FormComponent.vue')
-})
-
 const formObj = [
   {
     // field to display in label
@@ -55,7 +49,7 @@ const formObj = [
   },
 ]
 
-onMounted(async () => {
+const FormComponent = defineAsyncComponent(async () => {
   await restaurantStore.fetchCuisines()
 
   formObj.push({
@@ -74,6 +68,7 @@ onMounted(async () => {
     idReference: 'cuisineId',
     required: false,
   })
+  return import('../../components/layout/FormComponent.vue')
 })
 
 async function createRestaurant(values) {
